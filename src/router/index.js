@@ -43,7 +43,7 @@ const router = createRouter({
     {
       path: "/:pathMatch(.*)*",
       name: "pagenotfound",
-      component: PageNotFoundView,
+      component: PageNotFoundView
     },
 
   ]
