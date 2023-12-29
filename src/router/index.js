@@ -4,7 +4,8 @@ import LandingPageView from '@/views/LandingPageView.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import CuriositiesView from '@/views/CuriositiesView.vue'
 import ProfileView from '@/views/ProfileView.vue'
-import PageNotFoundViewfrom '@/views/PageNotFoundView.vue'
+import PageNotFoundView from '@/views/PageNotFoundView.vue'
+import PageBlockedView from '@/views/PageBlockedView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,13 @@ const router = createRouter({
       path: "/:pathMatch(.*)*",
       name: "pagenotfound",
       component: PageNotFoundView
+    },
+
+    {
+      path: '/blocked',
+      name: 'pageblocked',
+      component: PageBlockedView
+
     },
 
   ]
