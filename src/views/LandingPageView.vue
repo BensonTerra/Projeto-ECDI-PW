@@ -3,7 +3,7 @@
 
 <div class="navbar">
     <router-link to="/home">Entrar</router-link>
-    <a href="#">Sobre nós</a>
+    <a href="#"  @click="scrollSobreNos">Sobre nós</a>
   </div>
 
   <div class="highlight">
@@ -17,10 +17,11 @@
     </div>
   </div>
 
-  <div class="arrowGoDown" v-show="showArrow">
-    <img src="../assets/arrow.png">
+  <div class="arrowGoDown" v-show="showArrow" @click="arrowGoDown">
+  <img src="../assets/arrow.png">
   </div>
 
+  <div id="scrollTarget">
   <div class="Filter">
     <img src="../assets/filtrarFoto.png">
     <div class="filterContent">
@@ -28,6 +29,7 @@
       <p>Escolha o aeroporto e o destino para <br> achar o seu voo rapidamente!</p>
     </div>
   </div>
+</div>
 
   <div class="BrazilMap">
     <img src="..\assets\backgroundPersonalize.png">
@@ -50,7 +52,7 @@
   <div class="MeetUsContent">
     <h1>Agora que sabe um pouco sobre o que <br> temos para si, venha conhecer-nos!</h1>
     <p>Embarque nesta viagem connosco e conheça um pouco sobre nós e o projeto!</p>
-     <h2>Sobre nós</h2>
+     <h2 id="sobreNos">Sobre nós</h2>
   </div>
 
      
@@ -69,46 +71,77 @@
   <router-link to="/home" class="boto-entrar-on-image">
       <div class="text-wrapper">Entrar</div>
     </router-link>
+
+    <div class="arrowGoUp"  @click="arrowGoUp" >
+    <img src="../assets/arrowUp.png">
+    </div>
+
 </div>
 
 
 </template>
 
 <script>
-    export default {
-      data() {
-    return {
-      showArrow: true
-    };
-  },
-  mounted() {
-    window.addEventListener('scroll', this.handleScroll);
-  },
-  beforeUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  },
-  methods: {
-    handleScroll() {
-  const currentScrollPosition = window.scrollY;
-  if (currentScrollPosition==0) {
-    this.showArrow = true; // Show arrow only when at the top
-  } else {
-    this.showArrow = false;
-  }
-}
-  }
+export default {
+    data() {
+      return {
+        showArrow: true,
+    
+      };
+    },
+    mounted() {
+      window.addEventListener('scroll', this.handleScroll);
+    },
+    beforeUnmount() {
+      window.removeEventListener('scroll', this.handleScroll);
+    },
+    methods: {
+      handleScroll() {
+        const currentScrollPosition = window.scrollY;
+        if (currentScrollPosition == 0) {
+          this.showArrow = true; // Show arrow only when at the top
+        } else {
+          this.showArrow = false;
+        }
+      },
+      arrowGoDown() {
+        const filterSection = document.querySelector("#scrollTarget");
+        if (filterSection) {
+          filterSection.scrollIntoView({ behavior: "smooth" });
+        }
+      },
+      scrollSobreNos() {
+      const sobreNosSection = document.getElementById('sobreNos');
+      if (sobreNosSection) {
+        sobreNosSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    },
+
+    arrowGoUp() {
+        const highlightSection = document.querySelector(".navbar");
+        if (highlightSection) {
+          highlightSection.scrollIntoView({ behavior: "smooth" });
+        }
+      },
     }
+  }
 </script>
 
 <style >
+
+@font-face {
+      font-family: 'IBM Plex Sans';
+      src: url(../assets/fonts/IBMPlexSans-SemiBold.ttf);
+  }
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'IBM Plex Sans';
   background-color: #ECECE4; /* fundo da página */
 }
 
 .navbar {
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   padding: 20px;
@@ -132,6 +165,7 @@ body {
 }
 
 .highlight img {
+  width: 100%;
   max-width: 100%;
   max-height: 100%;
   z-index: -1;
@@ -186,14 +220,20 @@ body {
 
 .arrowGoDown {
   position: fixed;
-  bottom: 20px;
+  bottom: 0.6rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
 }
 
 .arrowGoDown img {
+  cursor: pointer;
   display: block;
+}
+
+.arrowGoDown:hover img {
+  transform: translateY(-5px); /* Adjust the value to change the amount of movement */
+  transition: transform 0.3s ease; /* Smooth transition for the animation */
 }
 
 /* Filter Section */
@@ -381,5 +421,25 @@ body {
 .boto-entrar-on-image:hover {
   background-color: #215C5C;
 }
+
+
+/* Add or update the styles for the arrowGoUp class */
+.arrowGoUp {
+  position: absolute;
+  bottom: 3rem;
+  right: 3rem;
+  z-index: 3;
+}
+
+.arrowGoUp img {
+  cursor: pointer;
+  display: block;
+}
+
+.arrowGoUp:hover img {
+  transform: translateY(-5px); 
+  transition: transform 0.3s ease; 
+}
+
 
 </style>
