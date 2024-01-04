@@ -244,7 +244,7 @@ export default {
       tile
       color="#00191F"
       >
-      <button class="closeButton" @click="hideCard">
+      <button class="closeButton1" @click="hideCard">
         <v-icon
           icon="mdi-close"
         ></v-icon></button>
@@ -304,7 +304,7 @@ export default {
   }
   .card2 {
     min-width: 33.3%;
-    padding-top: 2em;
+    padding-top: 1em;
     padding-left: 2em;
     font-family: 'IBM Plex Sans';
     
@@ -314,7 +314,7 @@ export default {
     justify-content: center;
     align-items: center;
     height: 100%;
-    padding-top: 3em;
+    padding-top: 1.5em;
   }
   .flight-info-card {
     position: absolute;
@@ -328,7 +328,7 @@ export default {
     filter: drop-shadow(0px 8px 4px rgba(0, 0, 0, 1));
     border-radius: 1rem !important ;
   }
-  .closeButton {
+  .closeButton1 {
     color: #ECECE4;
     position: absolute;
     z-index: 999;
