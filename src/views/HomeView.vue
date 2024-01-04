@@ -237,7 +237,7 @@ export default {
 
 <template>
   <div class="container">
-    <div class="card">
+    <div class="card2">
       <v-card
       v-if="isFlightInfoVisible"
       class="flight-info-card"
@@ -302,11 +302,12 @@ export default {
     display: flex;
     flex-direction: row;
   }
-  .card {
+  .card2 {
     min-width: 33.3%;
     padding-top: 2em;
     padding-left: 2em;
     font-family: 'IBM Plex Sans';
+    
   }
   #canvasContainer {
     display: flex;
