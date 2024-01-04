@@ -137,7 +137,10 @@ export default {
 body {
   margin: 0;
   font-family: 'IBM Plex Sans';
-  background-color: #ECECE4; /* fundo da página */
+  background-color: #ECECE4 !important; /* fundo da página */
+}
+#app {
+  padding: 0 !important;
 }
 
 .navbar {
@@ -149,15 +152,15 @@ body {
 }
 
 .navbar a {
-  color: #00191F; /* cor do texto */
-  text-decoration: none;
-  margin-left: 20px;
+  color: #00191F !important; /* cor do texto */
+  text-decoration: none!important;
+  margin-left: 1rem !important;
 }
 
 .navbar a:hover {
-  color:#215C5C;
-  text-decoration: underline;
-  text-decoration-color: #215C5C;
+  color:#215C5C !important;
+  text-decoration: underline !important;
+  text-decoration-color: #215C5C !important;
 }
 
 .highlight {
