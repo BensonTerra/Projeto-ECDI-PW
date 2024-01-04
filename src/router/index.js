@@ -3,7 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import LandingPageView from '@/views/LandingPageView.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import CuriositiesView from '@/views/CuriositiesView.vue'
-import ProfileView from '@/views/ProfileView.vue'
+import LoginView from '@/views/LoginView.vue'
 import PageNotFoundView from '@/views/PageNotFoundView.vue'
 import PageBlockedView from '@/views/PageBlockedView.vue'
 
@@ -38,7 +38,7 @@ const router = createRouter({
     {
       path: '/profile',
       name: 'profile',
-      component: ProfileView
+      component: LoginView
 
     },
     {
