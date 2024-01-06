@@ -14,13 +14,30 @@
 export default {
   data() {
     return {
-      currentImageSource: "src/assets/nav1.png",
+      navImages: {
+        '/home': 'nav1',
+        '/dashboard': 'nav2',
+        '/curiosities': 'nav3',
+        '/profile': 'nav4',
+        // Add more routes and corresponding image names as needed
+      },
+      currentImageSource: "",
     };
   },
   computed: {
     isNavVisible() {
-      return this.$route.path !== '/' && this.$route.path !== '/base' && this.$route.path !== '/pageBlocked' ;
+      return this.$route.path !== '/' && this.$route.path !== '/base' && this.$route.path !== '/pageBlocked';
+    },
   },
+  watch: {
+    '$route'(to, from) {
+      // Update the currentImageSource when the route changes
+      this.updateNavImage();
+    },
+  },
+  mounted() {
+    // Initial update of the navbar image based on the current route
+    this.updateNavImage();
   },
   methods: {
     changeImageAndRoute(newImage, newRoute) {
@@ -29,6 +46,11 @@ export default {
 
       // Use router.push() to navigate to the specified route
       this.$router.push(newRoute);
+    },
+    updateNavImage() {
+      // Get the current route and update the navbar image
+      const currentRoute = this.$route.path;
+      this.currentImageSource = `src/assets/${this.navImages[currentRoute]}.png`;
     },
   },
 };
