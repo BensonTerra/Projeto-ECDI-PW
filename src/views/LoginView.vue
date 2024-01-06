@@ -1,9 +1,5 @@
-<template>
-  <v-btn @click="openLoginDialog">
-      Perfil
-    </v-btn>
-    
-    <v-dialog v-model="loginDialog" max-width="600">
+<template>  
+    <v-dialog v-model="loginDialog" @click:outside="closeDialogAndGoBack" max-width="600">
       <v-card class="card">
         <div class="title">
           <div class="loginTitle"></div>
@@ -35,7 +31,7 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-model="registerDialog" max-width="600">
+    <v-dialog v-model="registerDialog" @click:outside="closeDialogAndGoBack" max-width="600">
       <v-card class="card">
         <div class="title">
           <div class="loginTitle"></div>
@@ -88,7 +84,15 @@ export default {
         registerSuccessMessage: "",
       };
     },
+    created(){
+      this.openLoginDialog();
+    },
     methods: {
+      closeDialogAndGoBack() {
+      this.loginDialog = false;
+      this.registerDialog = false;
+      this.$router.go(-1); // Go back to the previous page
+      },
       openLoginDialog() {
         if (!this.isUserLoggedIn) {
           this.registerDialog = false;
@@ -162,6 +166,7 @@ export default {
   justify-content: space-between;
   color: #BC9A22 !important; 
   padding-top: 1em !important;
+  
 }
 .loginTitle {
   max-width: 34.5px;
