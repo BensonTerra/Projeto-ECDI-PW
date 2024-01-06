@@ -19,20 +19,7 @@ export default {
   },
   computed: {
     isNavVisible() {
-    // Check if the current route is one of the excluded routes
-    const excludedRoutes = ['/', '/base', '/pageBlocked']; // Add other exclusions if needed
-
-    // Check if the current route is in the excluded routes list
-    if (excludedRoutes.includes(this.$route.path)) {
-      return false; // Exclude navigation bar
-    }
-
-    // Check if the route matches the pathMatch dynamic route pattern
-    if (this.$route.path.match(/^\/.+$/)) {
-      return false; // Exclude navigation bar
-    }
-
-    return true; // Show navigation bar for other routes
+      return this.$route.path !== '/' && this.$route.path !== '/base' && this.$route.path !== '/pageBlocked' ;
   },
   },
   methods: {

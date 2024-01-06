@@ -51,10 +51,10 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url(../assets/PageNotFoundBackground.png);
+  background-image: url(../assets/PageNotFoundBackground.png)!important; 
   background-size: cover;
   background-position: 50%;
-  z-index: -1; 
+
 }
 
 

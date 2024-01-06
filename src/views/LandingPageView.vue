@@ -1,6 +1,6 @@
 <template>
 
-
+<div class='body'>
 <div class="navbar">
     <router-link to="/home">Entrar</router-link>
     <a href="#"  @click="scrollSobreNos">Sobre nós</a>
@@ -67,7 +67,7 @@
      
     </div>
   </div>
-
+  
   <router-link to="/home" class="boto-entrar-on-image">
       <div class="text-wrapper">Entrar</div>
     </router-link>
@@ -77,7 +77,7 @@
     </div>
 
 </div>
-
+</div>
 
 </template>
 
@@ -134,7 +134,7 @@ export default {
       src: url(../assets/fonts/IBMPlexSans-SemiBold.ttf);
   }
 
-body {
+.body {
   margin: 0;
   font-family: 'IBM Plex Sans';
   background-color: #ECECE4 !important; /* fundo da página */
@@ -274,7 +274,6 @@ body {
 
 .BrazilMap img {
   max-width: 75%;
-  z-index: -1;
 }
 
 .BrazilMapContent {
