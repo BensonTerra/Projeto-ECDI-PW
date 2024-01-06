@@ -18,9 +18,14 @@ export default {
     };
   },
   computed: {
-    isNavVisible() {
-      // Check if the current route is not the base route or '/'
-      return this.$route.path !== '/' && this.$route.path !== '/base';
+     isNavVisible() {
+    // Check if the current route is not the base route or '/'
+    return (
+      this.$route.path !== '/' &&
+      this.$route.path !== '/base' &&
+      !this.$route.path !==  '/pageBlocked' &&
+      !this.$route.path.match(/^\/[^/]*$/) // Excludes /:pathMatch(.*) route
+    );
     },
   },
   methods: {
