@@ -5,30 +5,23 @@
         <div class="Content">
 
             <div class="TitleContent">
-                <h1 class="error"> 404 </h1>
-                <h1> Perdido nas Nuvens  <br> <img src="..\assets\divederPageNotFound.png">  </h1>
+                <img class="iconBlocked" src="..\assets\blocked.png">
+                <h1> Check-In Negado   <br>   </h1>
+                <img class='divider' src="..\assets\dividerPageBlocked.png">
             </div>
             <div class="TextContent">
-                <p>Ops, parece que você perdeu-se nas nuvens. <br> 
-                    A página solicitada não foi encontrada. <br>
-                    Não se preocupe e volte para a página anterior. <br>
+                <p>
+                    Ops, parece que você não vai poder embarcar. <br>
+                    A sua conta foi bloqueada por um administrador.
+
                 </p>
             </div>
-
-            <div class="buttonsRouter">
-                <router-link to="/" class="goToLanding">
-                <div class="text-wrapper">Ir a página inicial</div>
-                </router-link>
-
-                <div class="backToLastPage" @click="$router.go(-1)">
-                <div class="text-wrapper">Voltar</div>
-                </div>
 
             </div>
 
         </div>
 
-    </div>
+  
 
 </template>
 
@@ -61,62 +54,32 @@
 /*Content Section */
 .Content {
   position: absolute;
-  left: 15rem;
+  left: 50rem;
   top:10rem;
 }
 
 .TitleContent, .TextContent{
-    color:#261E3C;
+    color:#ffffff;
+    font-size: 1rem;
 }
 
 .TextContent {
   padding-bottom: 1.5rem;
   margin-top: -1rem; 
 }
-.error{
-    color: #A6A4A4;
-}
 
-.TitleContent h1 img {
-  margin-bottom: 2rem; 
-}
-
-/*Router Buttons Section */
-
-.goToLanding{
+.iconBlocked {
+    width: 3rem; /* Set the width of the icon */
+    height: 3rem; /* Set the height of the icon */
     position: absolute;
-    width: 13rem;
-    height: 3rem;
-    background-color: #268CC5;
-    border-radius: 1rem;
-    overflow: hidden;
+    left: 18rem;
+    top:-0.1rem;
 }
 
-.text-wrapper{
-  position: absolute;
-  width: 20rem;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #ECECE4;
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-align: center;
-
+.divider{
+    padding-top: 1.5rem;
+    padding-bottom: 5rem;
 }
 
-.goToLanding:hover ,.backToLastPage:hover{
-    background-color: #8AB0C5;
-}
- 
-.backToLastPage{
-    position: absolute;
-    width: 7rem;
-    height: 3rem;
-    background-color: #268CC5;
-    border-radius: 1rem;
-    overflow: hidden;
-    left:15rem;
-}
 
 </style>
