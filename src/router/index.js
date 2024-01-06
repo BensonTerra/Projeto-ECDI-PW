@@ -42,13 +42,13 @@ const router = createRouter({
 
     },
     {
-      path: "/:pathMatch(.*)*",
+      path: "/:pathMatch(.*)",
       name: "pagenotfound",
       component: PageNotFoundView
     },
 
     {
-      path: '/blocked',
+      path: '/pageBlocked',
       name: 'pageblocked',
       component: PageBlockedView
 
