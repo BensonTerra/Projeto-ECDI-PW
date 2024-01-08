@@ -1,4 +1,13 @@
-# brazilFlights
+# ESMAD - Project ECDI/PW - Interdisplinary Project [Real-Time Dashboard]- 2324 BrazilFlights
+
+Repository for the Interdisplinary Project made in the scope of the Project ECDI/PW - 2nd year of the Degree in Technologies and Information Systems for the Web (TSIW) 
+(ESMAD-P.PORTO)
+
+Students:
+
+* Luisa Pinho (40220114@esmad.ipp.pt)
+* Nélson Gomes (40220392@esmad.ipp.pt)
+* Simão Freitas (40220191@esmad.ipp.pt)
 
 This template should help get you started developing with Vue 3 in Vite.
 
