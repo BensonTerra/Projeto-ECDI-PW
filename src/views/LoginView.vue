@@ -148,6 +148,8 @@ export default {
       },
     },
   };
+
+  console.log("oi")
 </script>
 
 <style>
