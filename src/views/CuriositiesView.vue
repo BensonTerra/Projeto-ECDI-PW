@@ -4,9 +4,9 @@
             <img src="../assets/curiositiesBackground.png" usemap="#image-map"  @mousemove="updateHoverPosition($event)">
 
             <map name="image-map">
-                <area :coords="airportCoords" shape="rect" @mouseover="showAreaName('AEROPORTOS')" @mouseout="hideAreaName" class="areamap"  @click="toggleCarousel">
-                <area :coords="flightsCoords" shape="rect" @mouseover="showAreaName('VOOS')" @mouseout="hideAreaName" class="areamap">
-                <area :coords="airplaneCoords" shape="rect" @mouseover="showAreaName('AVIÕES')" @mouseout="hideAreaName" class="areamap">
+                <area :coords="airportCoords" shape="rect" @mouseover="showAreaName('AEROPORTOS')" @mouseout="hideAreaName" class="areamap" @click="toggleCarousel('AEROPORTOS')">
+                <area :coords="flightsCoords" shape="rect" @mouseover="showAreaName('VOOS')" @mouseout="hideAreaName" class="areamap" @click="toggleCarousel('VOOS')">
+                <area :coords="airplaneCoords" shape="rect" @mouseover="showAreaName('AVIÕES')" @mouseout="hideAreaName" class="areamap" @click="toggleCarousel('AVIÕES')">
             </map>
 
             <div class="hoverContainer" v-if="showArea" :style="{ top: hoverY + 'px', left: hoverX + 'px' }">
@@ -15,11 +15,11 @@
 
         </div>
 
-        <div v-if="showCarousel" v-for="curiositie in curiosities" :key="curiositie.id"  class="carouselCuriosities">
+        <div class="carouselCuriosities" v-if="showAirportCarousel">
                 <img class="closeButton" src="../assets/close.png"  @click="closeCarousel">
                 <h2>AEROPORTOS</h2>
                 <v-carousel  class="smallCarousel" :height="carouselHeight" hide-delimiters color="#00191F">
-                <v-carousel-item>
+                <v-carousel-item v-for="curiosite in curiositiesAirports" :key="curiosite.id">
                     <v-card
                     class="mx-auto"
                     max-width="400"
@@ -27,7 +27,7 @@
                     <v-img
                     class="align-end text-white"
                     height="200"
-                    src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+                    :src="curiosite.img"
                     cover
                     >
         
@@ -35,40 +35,79 @@
             
                     <v-card-text>
 
-                    <div>O Brasil é o segundo país no mundo em número de aeroportos, com 2.457 aeródromos registados, incluindo grandes, médios e pequenos terminais</div>
+                    <div>{{ curiosite.desc }}</div>
                     </v-card-text>
-                </v-card>
+                    </v-card>
                 
-                </v-carousel-item>
-                <v-carousel-item>
-                    <v-card
-                    class="mx-auto"
-                    max-width="400"
-                    >
-                    <v-img
-                    class="align-end text-white"
-                    height="200"
-                    src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-                    cover
-                    >
-        
-                    </v-img>
-            
-                    <v-card-text>
-
-                    <div>As faixas brancas no céu após aviões são trilhas de condensação. O vapor do motor se mistura com a atmosfera fria, formando nuvens.</div>
-                    </v-card-text>
-                </v-card>
                 </v-carousel-item>
                 <!-- Add more carousel items with v-card components as needed -->
                 </v-carousel>
-            </div>
+        </div>
+
+
+        <div class="carouselCuriosities" v-if="showFlightsCarousel">
+                <img class="closeButton" src="../assets/close.png"  @click="closeCarousel">
+                <h2>VOOS</h2>
+                <v-carousel  class="smallCarousel" :height="carouselHeight" hide-delimiters color="#00191F">
+                <v-carousel-item v-for="curiosite in curiositiesFlights" :key="curiosite.id">
+                    <v-card
+                    class="mx-auto"
+                    max-width="400"
+                    >
+                    <v-img
+                    class="align-end text-white"
+                    height="200"
+                    :src="curiosite.img"
+                    cover
+                    >
+        
+                    </v-img>
+            
+                    <v-card-text>
+
+                    <div>{{ curiosite.desc }}</div>
+                    </v-card-text>
+                    </v-card>
+                
+                </v-carousel-item>
+                <!-- Add more carousel items with v-card components as needed -->
+                </v-carousel>
+        </div>
+
+        <div class="carouselCuriosities" v-if="showAirplanesCarousel">
+                <img class="closeButton" src="../assets/close.png"  @click="closeCarousel">
+                <h2>AEROPORTOS</h2>
+                <v-carousel  class="smallCarousel" :height="carouselHeight" hide-delimiters color="#00191F">
+                <v-carousel-item v-for="curiosite in curiositiesAirplanes" :key="curiosite.id">
+                    <v-card
+                    class="mx-auto"
+                    max-width="400"
+                    >
+                    <v-img
+                    class="align-end text-white"
+                    height="200"
+                    :src="curiosite.img"
+                    cover
+                    >
+        
+                    </v-img>
+            
+                    <v-card-text>
+
+                    <div>{{ curiosite.desc }}</div>
+                    </v-card-text>
+                    </v-card>
+                
+                </v-carousel-item>
+                <!-- Add more carousel items with v-card components as needed -->
+                </v-carousel>
+        </div>
     </div>
 </template>
 
 <script>
 
-import { useCuriositieStore } from '../stores/curiosities.js';
+import { useCuriositiesStore } from '../stores/curiosities.js';
 
 export default {
     data() {
@@ -81,9 +120,25 @@ export default {
             hoverY: 0,
             areaName: '',
             carouselHeight: 300,
-            showCarousel: false,
+            showAirportCarousel: false,
+            showFlightsCarousel: false,
+            showAirplanesCarousel: false,
+            curiositieStore:useCuriositiesStore(),
             
         };
+    },
+    computed: {
+        curiositiesAirports(){
+            return this.curiositieStore.getCuriositiesByType('AEROPORTOS');
+        },
+        curiositiesFlights(){
+            return this.curiositieStore.getCuriositiesByType('VOOS');
+        },
+        curiositiesAirplanes(){
+            return this.curiositieStore.getCuriositiesByType('AVIÕES');
+        }
+
+
     },
     methods: {
         showAreaName(name) {
@@ -99,11 +154,15 @@ export default {
             this.hoverY = event.pageY - 20; // Adjust offset as needed
         },
 
-        toggleCarousel() {
-            this.showCarousel = !this.showCarousel; // Toggle the carousel flag
+        toggleCarousel(area) {
+            this.showAirportCarousel = area === 'AEROPORTOS';
+            this.showFlightsCarousel = area === 'VOOS';
+            this.showAirplanesCarousel = area === 'AVIÕES';
         },
         closeCarousel() {
-            this.showCarousel = false;
+            this.showAirportCarousel = false;
+            this.showFlightsCarousel = false;
+            this.showAirplanesCarousel = false;
         },
     }
 }
