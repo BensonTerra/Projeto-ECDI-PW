@@ -9,6 +9,8 @@ Students:
 * Nélson Gomes (40220392@esmad.ipp.pt)
 * Simão Freitas (40220191@esmad.ipp.pt)
 
+  
+:-
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
