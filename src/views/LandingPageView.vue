@@ -60,9 +60,10 @@
     <img src="../assets/Nós.png">
     <div class="MeetUsDetails">
   
-      <p>Somos uma nova empresa dedicada <br> a tornar sua experiência mais pessoal.
-        <br>Acompanhe os voos de seus entes queridos, <br>divirta-se com curiosidades e explore nosso <br>mapa interativo.
-       Esperamos que aproveitem!
+      <p>Somos um grupo de 3 estudantes  <br> da Licenciatura de Tecnologias e 
+      <br>Sistemas de Informação para a Web<br>(TSIW) e unimos as nossas paixões  <br>por programação, design e aviação 
+      <br> para desenvolver o “BrazilFlights”. 
+       <br>Esperamos que aproveitem!
       </p>
      
     </div>
@@ -391,7 +392,7 @@ export default {
 
 .MeetUsDetails p {
   font-size: 1.2rem; /* Tamanho do parágrafo */
-  margin-top: 2.5rem;
+  margin-top: 1.5rem;
   line-height: 1.6; 
 }
 
@@ -428,7 +429,7 @@ export default {
 /* Add or update the styles for the arrowGoUp class */
 .arrowGoUp {
   position: absolute;
-  bottom: 3rem;
+  bottom: 8rem;
   right: 3rem;
   z-index: 3;
 }
