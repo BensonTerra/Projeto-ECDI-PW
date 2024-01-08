@@ -1,7 +1,18 @@
 <template>
-    <div>
+    
+        <div class="flightsBlock">
+            <p>Voos</p>
+        </div>
 
-    </div>
+        <div class="airportsBlock">
+            <p>Aeroportos</p>
+        </div>
+
+        <div class="companiesBlock">
+            <p>Companhias</p>
+        </div>
+
+    
 </template>
 
 <script>
@@ -10,6 +21,33 @@
     }
 </script>
 
-<style lang="scss" scoped>
+<style>
+.flightsBlock{
+    
+    width: 80rem;
+    height: 14rem;
+    background-color: wheat;
+    position: absolute;
+    left:18rem;
+    top:38rem;
+}
+
+.airportsBlock{
+    width: 50rem;
+    height: 25rem;
+    background-color: wheat;
+    position: absolute;
+    left:18rem;
+    top:8rem;
+}
+
+.companiesBlock{
+    width: 25rem;
+    height: 25rem;
+    background-color: wheat;
+    position: absolute;
+    left:73rem;
+    top:8rem;
+}
 
 </style>
