@@ -25,20 +25,22 @@
 .flightsBlock{
     
     width: 80rem;
-    height: 14rem;
+    height: 18rem;
     background-color: wheat;
     position: absolute;
     left:18rem;
-    top:38rem;
+    top:36rem;
+    border-radius: 1rem;
 }
 
 .airportsBlock{
-    width: 50rem;
+    width: 52rem;
     height: 25rem;
     background-color: wheat;
     position: absolute;
     left:18rem;
     top:8rem;
+    border-radius: 1rem;
 }
 
 .companiesBlock{
@@ -48,6 +50,7 @@
     position: absolute;
     left:73rem;
     top:8rem;
+    border-radius: 1rem;
 }
 
 </style>
