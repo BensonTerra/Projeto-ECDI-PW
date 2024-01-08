@@ -30,7 +30,7 @@ export const useUserStore = defineStore("user", {
         throw new Error("As senhas não coincidem.");
       }
 
-      if (email || username || password || confirmPassword) {
+      if (!email || !username || !password || !confirmPassword) {
         throw new Error("Preencha os campos todos.");
       }
 
