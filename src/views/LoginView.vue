@@ -116,12 +116,17 @@ export default {
         try {
           this.loggingIn = true; 
           this.userStore.login(this.username, this.password)
+          
           this.loginSuccessMessage = "Login bem-sucedido!";
           setTimeout(() => {
             this.loginSuccessMessage = "A entrar na sua conta...";
           }, 2000);
           setTimeout(() => {
-            this.$router.push({name: "profile"});
+            if (this.isLoggedUserBlock) {
+              this.$router.push({name: "pageblocked"});
+            } else {
+              this.$router.push({name: "profile"});
+            }
           }, 4000);
         } catch (error) {
           this.loginErrorMessage = `${error.message}`;
@@ -146,10 +151,12 @@ export default {
       isUserLoggedIn() {
         return this.userStore.isUser;
       },
+      isLoggedUserBlock() {
+        return this.userStore.isLoggedUserBlocked;
+      }
     },
   };
 
-  console.log("oi")
 </script>
 
 <style>

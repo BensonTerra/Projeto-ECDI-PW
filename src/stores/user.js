@@ -4,7 +4,7 @@ export const useUserStore = defineStore("user", {
     isUserAuthenticated: false,
     user: null,
     users: [
-      { email: "simao@gmail.com", username: "simao", password: "12345", isAdmin: false, isBlocked: false },
+      { email: "simao@gmail.com", username: "simao", password: "12345", isAdmin: false, isBlocked: true },
       { email: "luisa@gmail.com", username: "luisa", password: "12345", isAdmin: false, isBlocked: false },
       { email: "nelson@gmail.com", username: "nelson", password: "12345", isAdmin: false, isBlocked: false },
     ],
@@ -12,6 +12,7 @@ export const useUserStore = defineStore("user", {
   getters: {
     getUser: (state) => state.user,
     isUser: (state) => state.isUserAuthenticated,
+    isLoggedUserBlocked: (state) => state.user.isBlocked
   },
   actions: {
     login(username, password) {

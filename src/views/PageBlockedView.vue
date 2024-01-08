@@ -1,20 +1,25 @@
 <template>
-    <div class='mainBody'>
+    <div class='mainBodyBlocked'>
         
-        <div class="background"> </div>
-        <div class="Content">
+        <div class="backgroundBlocked"> </div>
+        <div class="ContentBlocked">
 
-            <div class="TitleContent">
+            <div class="TitleContentBlocked">
                 <img class="iconBlocked" src="..\assets\blocked.png">
                 <h1> Check-In Negado   <br>   </h1>
-                <img class='divider' src="..\assets\dividerPageBlocked.png">
+                <img class='dividerBlocked' src="..\assets\dividerPageBlocked.png">
             </div>
-            <div class="TextContent">
+            <div class="TextContentBlocked">
                 <p>
                     Ops, parece que você não vai poder embarcar. <br>
                     A sua conta foi bloqueada por um administrador.
 
                 </p>
+            </div>
+            <div class="buttonsRouterBlocked">
+                <div class="goToLandingBlocked" @click="logout">
+                    <div class="text-wrapperBlocked">Ir a página inicial</div>
+                </div>
             </div>
 
             </div>
@@ -26,19 +31,31 @@
 </template>
 
 <script>
-    export default {
-        
-    }
+import { useUserStore } from '@/stores/user';
+export default {
+    data() {
+        return {
+            userStore: useUserStore()
+        }
+    },
+    computed: {
+        logout() {
+            this.$router.push({name: "landingPage"});
+            return this.userStore.logout
+            
+        }
+    },
+}
 </script>
 
-<style >
-.mainBody {
+<style>
+.mainBodyBlocked {
   position: relative;
   min-height: 100vh;
 }
 
 /*Background Section */
-.background {
+.backgroundBlocked {
   position: fixed;
   top: 0;
   left: 0;
@@ -52,18 +69,18 @@
 
 
 /*Content Section */
-.Content {
+.ContentBlocked {
   position: absolute;
   left: 50rem;
   top:10rem;
 }
 
-.TitleContent, .TextContent{
+.TitleContentBlocked, .TextContentBlocked{
     color:#ffffff;
     font-size: 1rem;
 }
 
-.TextContent {
+.TextContentBlocked {
   padding-bottom: 1.5rem;
   margin-top: -1rem; 
 }
@@ -76,9 +93,35 @@
     top:-0.1rem;
 }
 
-.divider{
+.dividerBlocked{
     padding-top: 1.5rem;
     padding-bottom: 5rem;
+}
+.goToLandingBlocked {
+    position: absolute;
+    width: 13rem;
+    height: 3rem;
+    background-color: #E50E1A;
+    border-radius: 1rem;
+    overflow: hidden;
+    cursor: pointer;
+}
+.goToLandingBlocked:hover {
+    background-color: #a10404;
+
+}
+
+.text-wrapperBlocked{
+  position: absolute;
+  width: 20rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ECECE4;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+
 }
 
 
