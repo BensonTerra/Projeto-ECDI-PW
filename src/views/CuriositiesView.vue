@@ -40,14 +40,14 @@
                     </v-card>
                 
                 </v-carousel-item>
-                <!-- Add more carousel items with v-card components as needed -->
+               
                 </v-carousel>
         </div>
 
 
         <div class="carouselCuriosities" v-if="showFlightsCarousel">
                 <img class="closeButton" src="../assets/close.png"  @click="closeCarousel">
-                <h2>VOOS</h2>
+                <h2 class="voosTitle">VOOS</h2>
                 <v-carousel  class="smallCarousel" :height="carouselHeight" hide-delimiters color="#00191F">
                 <v-carousel-item v-for="curiosite in curiositiesFlights" :key="curiosite.id">
                     <v-card
@@ -70,13 +70,13 @@
                     </v-card>
                 
                 </v-carousel-item>
-                <!-- Add more carousel items with v-card components as needed -->
+               
                 </v-carousel>
         </div>
 
         <div class="carouselCuriosities" v-if="showAirplanesCarousel">
                 <img class="closeButton" src="../assets/close.png"  @click="closeCarousel">
-                <h2>AEROPORTOS</h2>
+                <h2 class="voosTitle" >AVIOES</h2>
                 <v-carousel  class="smallCarousel" :height="carouselHeight" hide-delimiters color="#00191F">
                 <v-carousel-item v-for="curiosite in curiositiesAirplanes" :key="curiosite.id">
                     <v-card
@@ -99,8 +99,49 @@
                     </v-card>
                 
                 </v-carousel-item>
-                <!-- Add more carousel items with v-card components as needed -->
+                
                 </v-carousel>
+        </div>
+
+        <div class="AdminAdd">
+           <img class='addCuriositie' src="../assets/addCuriosities.png"  @click="toggleAddCuriositiesForm">
+        </div>
+
+
+        <div class="AddCuriositiesForm" v-show="showAddCuriositiesForm">
+            <img class="closeButton" src="../assets/close.png"  @click="closeCarousel">
+            <h2 class="addTitle">Adicionar Curiosidade</h2>
+            <v-form ref="form"  validate-on="submit" @submit.prevent>
+            <label for="curiosityType">Selecione o tipo de curiosidade:</label>
+            <v-select
+            id="curiosityType"
+            clearable 
+            :items="curiosityTypes"
+            v-model="selectedType"
+            required
+            ></v-select>
+            <label for="srcImage">Insira o caminho da imagem:</label>    
+            <v-text-field
+            v-model="imgSrc"
+            required
+          ></v-text-field>
+
+            <br />
+            <label for="curiosityDescription">Insira a curiosidade (Max-150 caracteres):</label>
+            <v-textarea clearable required   v-model="curiosityDescription" id="curiosityDescription" maxlength="150" ></v-textarea>
+            <br /><br />
+            <button type="submit"  @click="addNewCuriosity">
+                <img class="addButton" src="../assets/adicionarCuriosidadesBotao.png">
+            </button>
+            </v-form>
+        </div>
+        <div v-if="showSuccessWarn" class="SuccessMessage" >
+            <img src="../assets/Success.png" usemap="#sucessMap">
+
+            <map name="sucessMap">
+                <area coords="158,137,206,169" shape="rect" id="closeSuccessDiv"  @click=" closeCarousel">
+            </map>
+            
         </div>
     </div>
 </template>
@@ -108,10 +149,13 @@
 <script>
 
 import { useCuriositiesStore } from '../stores/curiosities.js';
+import { useUserStore } from '../stores/user.js';
 
 export default {
     data() {
         return {
+            curiositieStore:useCuriositiesStore(),
+            Userstore: useUserStore(),
             airportCoords: '403,252,445,294',
             flightsCoords: '477,439,514,475',
             airplaneCoords: '717,76,760,115',
@@ -123,10 +167,16 @@ export default {
             showAirportCarousel: false,
             showFlightsCarousel: false,
             showAirplanesCarousel: false,
-            curiositieStore:useCuriositiesStore(),
+            showAddCuriositiesForm: false,
+            showSuccessWarn: false,
+            selectedType: '',
+            curiosityDescription: '',
+            imgSrc:'',
+            
             
         };
     },
+    
     computed: {
         curiositiesAirports(){
             return this.curiositieStore.getCuriositiesByType('AEROPORTOS');
@@ -136,7 +186,14 @@ export default {
         },
         curiositiesAirplanes(){
             return this.curiositieStore.getCuriositiesByType('AVIÕES');
-        }
+        },
+
+        isAdmin(){
+            return this.Userstore.isAdmin
+        },
+        curiosityTypes() {
+            return this.curiositieStore.getAllTypesCuriosities;
+        },
 
 
     },
@@ -163,7 +220,38 @@ export default {
             this.showAirportCarousel = false;
             this.showFlightsCarousel = false;
             this.showAirplanesCarousel = false;
+            this.showAddCuriositiesForm = false;
+            this.showSuccessWarn= false;
         },
+        toggleAddCuriositiesForm() {
+            this.showAddCuriositiesForm = true;
+           
+        },
+        async addNewCuriosity() {
+            const newCuriosity = {
+                type: this.selectedType,
+                desc: this.curiosityDescription,
+                img: this.imgSrc,
+            };
+
+            try {
+                // Assuming addCuriosity is an async operation returning a promise
+                await this.curiositieStore.addCuriosity(newCuriosity);
+                // Reset form fields or perform any other actions upon success
+                this.selectedType = '';
+                this.curiosityDescription = '';
+                this.imgSrc = '';
+                // Show success message
+                this.showSuccessWarn = true;
+
+                console.log(this.showSuccessWarn);
+            } catch (error) {
+                // Handle errors
+                console.error('Error adding curiosity:', error);
+                // Optionally, display an error message or perform error-related actions
+            }
+            },
+          
     }
 }
 </script>
@@ -246,4 +334,60 @@ export default {
     background-color: yellow;
 }
 
+.voosTitle{
+    position: absolute;
+  top: 0.2em;
+  right: 16rem !important;
+  color: #ECECE4;
+  width: 1rem;
+}
+
+
+.AdminAdd {
+  position: absolute;
+  bottom: 3rem;
+  right: 22rem;
+ 
+}
+
+.addCuriositie {
+  width: 3vw; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+  cursor: pointer;
+}
+
+.AddCuriositiesForm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: #00191f;
+  padding: 3rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color:#666D6F
+}
+
+/* Additional styles for form elements */
+textarea {
+  resize: vertical;
+  width: 300px;
+  max-width: 100%;
+  height: 100px;
+}
+.addButton{
+    position: absolute;
+    width: 8vw;
+    right: 8.5rem;
+    bottom:3rem;
+    cursor: pointer;
+}
+
+.addTitle{
+    padding-bottom: 3rem;
+    color:#ECECE4
+}
 </style>

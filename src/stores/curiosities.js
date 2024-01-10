@@ -55,14 +55,37 @@ export const useCuriositiesStore = defineStore("curiositie", {
    
     ],
   }),
+  created() {
+      const types = this.curiosityTypes;
+      console.log(types);
+  },
   getters: {
     getCuriosities: (state) => state.curiosities,
     getCuriositiesByType: (state) => (type) => state.curiosities.filter(curiositie => curiositie.type === type),
-
+     getAllTypesCuriosities: (state) => {
+      return state.curiosities.reduce((types, curiosity) => {
+        if (!types.includes(curiosity.type)) {
+          types.push(curiosity.type);
+        }
+        return types;
+      }, []);
+    },
 
   },
   actions: {
-  
-  },  
+    addCuriosity(newCuriosity) {
+      const newId = this.curiosities.length + 1; // Increment the ID for the new curiosity
+      const addedCuriosity = {
+        id: newId,
+        type: newCuriosity.type,
+        desc: newCuriosity.desc,
+        img: newCuriosity.img,
+      };
+      this.curiosities.push(addedCuriosity); // Add the new curiosity to the array
+
+      console.log(this.curiosities);
+    },
+  },
+   
   persist: true,
 });
