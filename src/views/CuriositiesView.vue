@@ -16,7 +16,7 @@
         </div>
 
         <div class="carouselCuriosities" v-if="showAirportCarousel">
-                <img class="closeButton" src="../assets/close.png"  @click="closeCarousel">
+                <img class="closeButtonCuriosities" src="../assets/close.png"  @click="closeCarousel">
                 <h2>AEROPORTOS</h2>
                 <v-carousel  class="smallCarousel" :height="carouselHeight" hide-delimiters color="#00191F">
                 <v-carousel-item v-for="curiosite in curiositiesAirports" :key="curiosite.id">
@@ -46,7 +46,7 @@
 
 
         <div class="carouselCuriosities" v-if="showFlightsCarousel">
-                <img class="closeButton" src="../assets/close.png"  @click="closeCarousel">
+                <img class="closeButtonCuriosities" src="../assets/close.png"  @click="closeCarousel">
                 <h2 class="voosTitle">VOOS</h2>
                 <v-carousel  class="smallCarousel" :height="carouselHeight" hide-delimiters color="#00191F">
                 <v-carousel-item v-for="curiosite in curiositiesFlights" :key="curiosite.id">
@@ -75,7 +75,7 @@
         </div>
 
         <div class="carouselCuriosities" v-if="showAirplanesCarousel">
-                <img class="closeButton" src="../assets/close.png"  @click="closeCarousel">
+                <img class="closeButtonCuriosities" src="../assets/close.png"  @click="closeCarousel">
                 <h2 class="voosTitle" >AVIOES</h2>
                 <v-carousel  class="smallCarousel" :height="carouselHeight" hide-delimiters color="#00191F">
                 <v-carousel-item v-for="curiosite in curiositiesAirplanes" :key="curiosite.id">
@@ -108,7 +108,7 @@
 
 
         <div class="AddCuriositiesForm" v-show="showAddCuriositiesForm" >
-            <img class="closeButton" src="../assets/close.png"  @click="closeCarousel">
+            <img class="closeButtonCuriosities" src="../assets/close.png"  @click="closeCarousel">
             <h2 class="addTitle">Adicionar Curiosidade</h2>
             <v-form ref="form"  validate-on="submit" @submit.prevent>
             <label for="curiosityType">Selecione o tipo de curiosidade:</label>
@@ -343,9 +343,9 @@ export default {
   overflow-y: auto; /* Enable vertical scrolling if the content exceeds the height */
 }
 
-.closeButton {
+.closeButtonCuriosities {
   position: absolute;
-  top: 2.5em;
+  top: 1em;
   right: 1rem;
   cursor: pointer;
   z-index: 1001; /* Ensures the button is above the carousel */
