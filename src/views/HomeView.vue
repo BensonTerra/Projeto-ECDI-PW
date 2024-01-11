@@ -244,7 +244,7 @@ export default {
       tile
       color="#00191F"
       >
-      <button class="closeButton" @click="hideCard">
+      <button class="closeButtonX" @click="hideCard">
         <v-icon
           icon="mdi-close"
         ></v-icon></button>
@@ -328,7 +328,7 @@ export default {
     filter: drop-shadow(0px 8px 4px rgba(0, 0, 0, 1));
     border-radius: 1rem !important ;
   }
-  .closeButton {
+  .closeButtonX {
     color: #ECECE4;
     position: absolute;
     z-index: 999;
