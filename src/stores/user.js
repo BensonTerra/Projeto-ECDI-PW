@@ -16,7 +16,8 @@ export const useUserStore = defineStore("user", {
     isUser: (state) => state.isUserAuthenticated,
     isLoggedUserBlocked: (state) => state.user.isBlocked,
     isLoggedUserAdmin: (state) => state.user.isAdmin,
-    getUserArray: (state) => state.users
+    getUserArray: (state) => state.users,
+    isAdmin: (state) => { return state.user ? state.user.isAdmin : false;},
   },
   actions: {
     login(username, password) {
