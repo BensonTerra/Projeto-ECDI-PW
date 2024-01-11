@@ -80,11 +80,10 @@
                 <v-carousel  class="smallCarousel" :height="carouselHeight" hide-delimiters color="#00191F">
                 <v-carousel-item v-for="curiosite in curiositiesAirplanes" :key="curiosite.id">
                     <v-card
-                    class="mx-auto"
+    
                     max-width="400"
                     >
                     <v-img
-                    class="align-end text-white"
                     height="200"
                     :src="curiosite.img"
                     cover
@@ -364,6 +363,7 @@ export default {
     line-height: 1.25rem;
     background-color: #00191f;
     color: #ECECE4;
+    min-width: 25vw;
 }
 .v-btn__overlay {
     transition: none;
