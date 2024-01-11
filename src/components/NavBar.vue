@@ -24,6 +24,7 @@ export default {
         '/curiosities': 'nav3',
         '/login': 'nav4',
         '/profile': 'nav4',
+        '/dashboard/airports': 'nav2',
         // Add more routes and corresponding image names as needed
       },
       currentImageSource: "",
@@ -58,7 +59,7 @@ export default {
     updateNavImage() {
       // Get the current route and update the navbar image
       const currentRoute = this.$route.path;
-      this.currentImageSource = `src/assets/${this.navImages[currentRoute]}.png`;
+      this.currentImageSource = `/src/assets/${this.navImages[currentRoute]}.png`;
     },
   },
 };

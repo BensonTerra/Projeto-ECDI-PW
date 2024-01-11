@@ -8,6 +8,8 @@ import PageNotFoundView from '@/views/PageNotFoundView.vue'
 import PageBlockedView from '@/views/PageBlockedView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 
+import AirportsView from '@/views/AirportsView.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -58,6 +60,13 @@ const router = createRouter({
       path: '/pageBlocked',
       name: 'pageblocked',
       component: PageBlockedView
+
+    },
+
+    {
+      path: '/dashboard/airports',
+      name: 'airports',
+      component: AirportsView
 
     },
 
