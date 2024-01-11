@@ -4,11 +4,11 @@ export const useUserStore = defineStore("user", {
     isUserAuthenticated: false,
     user: null,
     users: [
-      { email: "simao@gmail.com", username: "simao", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg' },
-      { email: "luisa@gmail.com", username: "luisa", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg' },
-      { email: "nelson@gmail.com", username: "nelson", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg' },
-      { email: "admin@gmail.com", username: "admin", password: "admin", isAdmin: true, isBlocked: false, avatar: '../src/assets/avatar/avatar4.png' },
-      { email: "blocked@gmail.com", username: "blocked", password: "blocked", isAdmin: false, isBlocked: true, avatar: '../src/assets/avatar/defaultAvatar.jpg' },
+      {id: 1, email: "simao@gmail.com", username: "simao", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg' },
+      {id: 2, email: "luisa@gmail.com", username: "luisa", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg' },
+      {id: 3, email: "nelson@gmail.com", username: "nelson", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg' },
+      {id: 4, email: "admin@gmail.com", username: "admin", password: "admin", isAdmin: true, isBlocked: false, avatar: '../src/assets/avatar/avatar4.png' },
+      {id: 5, email: "blocked@gmail.com", username: "blocked", password: "blocked", isAdmin: false, isBlocked: true, avatar: '../src/assets/avatar/defaultAvatar.jpg' },
     ],
   }),
   getters: {
@@ -16,6 +16,7 @@ export const useUserStore = defineStore("user", {
     isUser: (state) => state.isUserAuthenticated,
     isLoggedUserBlocked: (state) => state.user.isBlocked,
     isLoggedUserAdmin: (state) => state.user.isAdmin,
+    getUserArray: (state) => state.users
   },
   actions: {
     login(username, password) {
@@ -43,7 +44,8 @@ export const useUserStore = defineStore("user", {
         throw new Error("Utilizador com esse email ou nome de utilizador já existe.");
       }
 
-      const newUser = { email, username, password, isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg'};
+      const id = this.users[this.users.length - 1].id + 1;
+      const newUser = {id: id, email, username, password, isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg'};
       this.users.push(newUser);
 
       this.login(username, password);
@@ -52,6 +54,12 @@ export const useUserStore = defineStore("user", {
       this.isUserAuthenticated = false;
       this.user = null;
     },
+    block(user) {
+        user.isBlocked = !user.isBlocked;
+    },
+    deleteAccount(id) {
+      this.users = this.users.filter((user) => user.id != id);
+    }
   },  
   persist: true,
 });
