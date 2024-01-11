@@ -8,7 +8,7 @@
         <button class="sideBarButtons" v-if="isAdmin" @click="redirectTo('profileAdmin')">Admin - Contas</button>
         <button class="sideBarButtons" @click="confirmLogout">Sair</button>
       </div>
-      <!--LOGOUT POP UP-->
+      <!-- POP UP-->
       <v-dialog v-model="dialogLogout" max-width="400">
         <v-card class="cardLogout">
             <button class="closeButtonLogout">
@@ -57,7 +57,6 @@ export default {
             this.dialogLogout = false;
         },
         redirectTo(pathName) {
-            console.log("teste");
             this.$router.push({ name: pathName });
         }
     },
