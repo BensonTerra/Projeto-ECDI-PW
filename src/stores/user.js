@@ -4,15 +4,18 @@ export const useUserStore = defineStore("user", {
     isUserAuthenticated: false,
     user: null,
     users: [
-      { email: "simao@gmail.com", username: "simao", password: "12345", isAdmin: false, isBlocked: true },
-      { email: "luisa@gmail.com", username: "luisa", password: "12345", isAdmin: false, isBlocked: false },
-      { email: "nelson@gmail.com", username: "nelson", password: "12345", isAdmin: false, isBlocked: false },
+      { email: "simao@gmail.com", username: "simao", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg' },
+      { email: "luisa@gmail.com", username: "luisa", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg' },
+      { email: "nelson@gmail.com", username: "nelson", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg' },
+      { email: "admin@gmail.com", username: "admin", password: "admin", isAdmin: true, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg' },
+      { email: "blocked@gmail.com", username: "blocked", password: "blocked", isAdmin: false, isBlocked: true, avatar: '../src/assets/avatar/defaultAvatar.jpg' },
     ],
   }),
   getters: {
     getUser: (state) => state.user,
     isUser: (state) => state.isUserAuthenticated,
-    isLoggedUserBlocked: (state) => state.user.isBlocked
+    isLoggedUserBlocked: (state) => state.user.isBlocked,
+    isLoggedUserAdmin: (state) => state.user.isAdmin,
   },
   actions: {
     login(username, password) {
@@ -40,7 +43,7 @@ export const useUserStore = defineStore("user", {
         throw new Error("Utilizador com esse email ou nome de utilizador já existe.");
       }
 
-      const newUser = { email, username, password, isAdmin: false, isBlocked: false };
+      const newUser = { email, username, password, isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg'};
       this.users.push(newUser);
 
       this.login(username, password);
