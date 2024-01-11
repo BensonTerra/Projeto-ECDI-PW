@@ -52,8 +52,8 @@ export default {
             this.dialogLogout = false;
         },
         performLogout() {
-            this.$router.push({ name: "landingPage" });
             this.userStore.logout();
+            this.$router.push({ name: "landingPage" });
             this.dialogLogout = false;
         },
         redirectTo(pathName) {
