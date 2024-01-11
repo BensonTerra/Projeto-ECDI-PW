@@ -3,11 +3,12 @@
         <v-avatar :image=getLoggedUser.avatar size="60"></v-avatar>
         <span class="username">{{ getLoggedUser.username }}</span>
         <div class="buttonSpacing"></div>
-        <button class="sideBarButtons">Favoritos</button>
-        <button class="sideBarButtons">Configurações</button>
-        <button class="sideBarButtons" v-if="isAdmin">Admin - Contas</button>
+        <button class="sideBarButtons" @click="redirectTo('profileFavorites')">Favoritos</button>
+        <button class="sideBarButtons" @click="redirectTo('profileConfigurations')">Configurações</button>
+        <button class="sideBarButtons" v-if="isAdmin" @click="redirectTo('profileAdmin')">Admin - Contas</button>
         <button class="sideBarButtons" @click="confirmLogout">Sair</button>
       </div>
+      <!--LOGOUT POP UP-->
       <v-dialog v-model="dialogLogout" max-width="400">
         <v-card class="cardLogout">
             <button class="closeButtonLogout">
@@ -51,15 +52,23 @@ export default {
             this.dialogLogout = false;
         },
         performLogout() {
-            this.userStore.logout();
             this.$router.push({ name: "landingPage" });
+            this.userStore.logout();
             this.dialogLogout = false;
         },
+        redirectTo(pathName) {
+            console.log("teste");
+            this.$router.push({ name: pathName });
+        }
     },
 }
 </script>
   
 <style scoped> 
+@font-face {
+    font-family: 'IBM Plex Sans';
+    src: url(../assets/fonts/IBMPlexSans-SemiBold.ttf);
+}
 .blue-sidebar {
     max-width: 15vw;
     width: 100%;
@@ -71,6 +80,7 @@ export default {
     position: fixed; 
     top: 0; 
     right: 0; 
+    font-family: 'IBM Plex Sans';
 }
 .username {
   font-size: 16px; 
@@ -92,7 +102,6 @@ export default {
   margin-top: 2em; 
 
 }
-
 .sideBarButtons:hover {
   background-color: #B4B390;
 }
@@ -106,6 +115,7 @@ export default {
   background-color: #00191F !important;
   border-radius: 5% !important; 
   height: 40vh;
+  font-family: 'IBM Plex Sans';
 }
 .closeButtonLogout {
   z-index: 999;

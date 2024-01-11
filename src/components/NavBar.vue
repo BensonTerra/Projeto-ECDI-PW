@@ -1,12 +1,13 @@
 <template>
   <div v-if="isNavVisible">
-    <img :src="currentImageSource" class="nav" id="navBar" usemap="#workmap">
+    <img :src="currentImageSource" class="nav" :style="{ left: isProfileRoute ? '42.5%' : '50%' }" id="navBar" usemap="#workmap">
     <map name="workmap">
       <area target="" alt="" title="" href="" coords="143,2,196,51" shape="rect" @click.prevent="changeImageAndRoute('nav1', '/home')">
       <area target="" alt="" title="" href="" coords="372,1,445,50" shape="rect" @click.prevent="changeImageAndRoute('nav2', '/dashboard')">
       <area target="" alt="" title="" href="" coords="609,1,686,51" shape="rect" @click.prevent="changeImageAndRoute('nav3', '/curiosities')">
       <area v-if="getUserLogged" target="" alt="" title="" href="" coords="858,3,903,51" shape="rect" @click.prevent="changeImageAndRoute('nav4', '/profile')">
       <area v-else target="" alt="" title="" href="" coords="858,3,903,51" shape="rect" @click.prevent="changeImageAndRoute('nav4', '/login')">
+
 
     </map>
   </div>
@@ -24,6 +25,9 @@ export default {
         '/curiosities': 'nav3',
         '/login': 'nav4',
         '/profile': 'nav4',
+        '/profile/admin': 'nav4',
+        '/profile/configurations': 'nav4',
+        '/profile/favorites': 'nav4',
         // Add more routes and corresponding image names as needed
       },
       currentImageSource: "",
@@ -35,6 +39,14 @@ export default {
     },
     getUserLogged(){
       return this.userStore.isUser
+    },
+    isProfileRoute() {
+      return (
+        this.$route.path.startsWith('/profile') ||
+        this.$route.name === 'profileAdmin' ||
+        this.$route.name === 'profileFavorites' ||
+        this.$route.name === 'profileConfigurations'
+      );
     }
   },
   watch: {
@@ -58,7 +70,7 @@ export default {
     updateNavImage() {
       // Get the current route and update the navbar image
       const currentRoute = this.$route.path;
-      this.currentImageSource = `src/assets/${this.navImages[currentRoute]}.png`;
+      this.currentImageSource = `/src/assets/${this.navImages[currentRoute]}.png`;
     },
   },
 };
@@ -67,8 +79,8 @@ export default {
 <style>
 .nav {
   position: relative;
-  left: 50%;
   transform: translateX(-50%);
   display: flex;
 }
+
 </style>
