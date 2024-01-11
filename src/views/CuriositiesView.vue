@@ -103,12 +103,12 @@
                 </v-carousel>
         </div>
 
-        <div class="AdminAdd">
+        <div class="AdminAdd" v-if="isAdmin">
            <img class='addCuriositie' src="../assets/addCuriosities.png"  @click="toggleAddCuriositiesForm">
         </div>
 
 
-        <div class="AddCuriositiesForm" v-show="showAddCuriositiesForm">
+        <div class="AddCuriositiesForm" v-show="showAddCuriositiesForm" >
             <img class="closeButton" src="../assets/close.png"  @click="closeCarousel">
             <h2 class="addTitle">Adicionar Curiosidade</h2>
             <v-form ref="form"  validate-on="submit" @submit.prevent>
@@ -135,14 +135,29 @@
             </button>
             </v-form>
         </div>
-        <div v-if="showSuccessWarn" class="SuccessMessage" >
-            <img src="../assets/Success.png" usemap="#sucessMap">
-
-            <map name="sucessMap">
-                <area coords="158,137,206,169" shape="rect" id="closeSuccessDiv"  @click=" closeCarousel">
-            </map>
-            
+        <div v-if="showSuccessWarn" class="SuccessMessage">
+            <div class="successWarning">
+                <img src="../assets/divWarning.png" usemap="#sucessMap" class="divWarning">
+                <img src="../assets/sucessIcon.png" class="SuccessIcon">
+                <p class="successP">Curiosidade adicionada com sucesso!</p>
+                <map name="sucessMap">
+                    <area coords="158,137,206,169" shape="rect"  @click="closeCarousel">
+                </map>
+            </div>
         </div>
+
+
+        <div v-if="showErrorWarn" class="ErrorMessage">
+            <div class="ErrorWarning">
+                <img src="../assets/divWarning.png" usemap="#errorMap" class="divWarning">
+                <img src="../assets/errorIcon.png" class="ErrorIcon">
+                <p class="errorP">{{ errorMessage }}</p>
+                <map name="errorMap">
+                    <area coords="158,137,206,169" shape="rect"  @click="closeCarousel">
+                </map>
+            </div>
+        </div>
+
     </div>
 </template>
 
@@ -169,9 +184,11 @@ export default {
             showAirplanesCarousel: false,
             showAddCuriositiesForm: false,
             showSuccessWarn: false,
+            showErrorWarn: false,
             selectedType: '',
             curiosityDescription: '',
             imgSrc:'',
+            errorMessage:'',
             
             
         };
@@ -222,35 +239,54 @@ export default {
             this.showAirplanesCarousel = false;
             this.showAddCuriositiesForm = false;
             this.showSuccessWarn= false;
+            this.showErrorWarn = false;
         },
         toggleAddCuriositiesForm() {
             this.showAddCuriositiesForm = true;
            
         },
         async addNewCuriosity() {
-            const newCuriosity = {
-                type: this.selectedType,
-                desc: this.curiosityDescription,
-                img: this.imgSrc,
-            };
+                // Check if any of the required fields are empty
+                if (!this.selectedType || !this.imgSrc || !this.curiosityDescription) {
+                    // Display an error message for empty fields
+                    this.showAddCuriositiesForm = false;
+                    this.showErrorWarn = true;
+                    this.errorMessage = 'Os campos não podem estar vazios.';
+                    return;
+                }
 
-            try {
-                // Assuming addCuriosity is an async operation returning a promise
-                await this.curiositieStore.addCuriosity(newCuriosity);
-                // Reset form fields or perform any other actions upon success
-                this.selectedType = '';
-                this.curiosityDescription = '';
-                this.imgSrc = '';
-                // Show success message
-                this.showSuccessWarn = true;
+                const newCuriosity = {
+                    type: this.selectedType,
+                    desc: this.curiosityDescription,
+                    img: this.imgSrc,
+                };
 
-                console.log(this.showSuccessWarn);
-            } catch (error) {
-                // Handle errors
-                console.error('Error adding curiosity:', error);
-                // Optionally, display an error message or perform error-related actions
+                try {
+                    // Assuming addCuriosity is an async operation returning a promise
+                    await this.curiositieStore.addCuriosity(newCuriosity);
+                    // Reset form fields or perform any other actions upon success
+                    this.selectedType = '';
+                    this.curiosityDescription = '';
+                    this.imgSrc = '';
+                    // Show success message
+                    this.showAddCuriositiesForm = false;
+                    this.showSuccessWarn = true;
+
+                    console.log(this.showSuccessWarn);
+                } catch (error) {
+                    // Handle errors
+                    console.error('Error adding curiosity:', error);
+                    // Optionally, display an error message or perform error-related actions
+                    this.showAddCuriositiesForm = false;
+                    this.showErrorWarn = true;
+                    // Check for specific error types if needed
+                    if (error.message === 'SpecificErrorType') {
+                        this.errorMessage = 'Erro específico ao adicionar a curiosidade.';
+                    } else {
+                        this.errorMessage = 'Erro ao adicionar a curiosidade. Tente novamente.';
+                    }
+                }
             }
-            },
           
     }
 }
@@ -389,5 +425,31 @@ textarea {
 .addTitle{
     padding-bottom: 3rem;
     color:#ECECE4
+}
+
+.divWarning {
+  position: relative;
+}
+
+.successWarning, .ErrorWarning {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center; /* Centraliza o conteúdo horizontalmente */
+  z-index: 10000;
+}
+
+.SuccessIcon, .ErrorIcon {
+  position: relative;
+  right: 13.3rem;
+  bottom: 10rem;
+}
+
+.successP, .errorP {
+    position: relative;
+  right: 1rem;
+  bottom: 8rem;
+  color: #ECECE4;
 }
 </style>
