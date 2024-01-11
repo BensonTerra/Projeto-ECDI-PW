@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="user in users" :key="user.id">
+                <tr v-for="user in filteredUsers" :key="user.id">
                     <td>{{ user.username }}</td>
                     <td>
                         {{ user.isBlocked ? 'Bloqueado' : 'Ativo' }}
@@ -69,7 +69,11 @@ export default {
     computed: {
         users() {
             return this.userStore.getUserArray 
-        }
+        },
+        filteredUsers() {
+            const loggedUser = this.userStore.getUser; 
+            return this.users.filter(user => user.id !== loggedUser.id);
+        },
     },
     methods: {
         toggleAccountStatus(user) {
