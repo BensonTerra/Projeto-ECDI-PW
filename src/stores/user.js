@@ -7,12 +7,17 @@ export const useUserStore = defineStore("user", {
       { email: "simao@gmail.com", username: "simao", password: "12345", isAdmin: false, isBlocked: true },
       { email: "luisa@gmail.com", username: "luisa", password: "12345", isAdmin: false, isBlocked: false },
       { email: "nelson@gmail.com", username: "nelson", password: "12345", isAdmin: false, isBlocked: false },
+      { email: "admin@gmail.com", username: "admin", password: "12345", isAdmin: true, isBlocked: false },
     ],
   }),
   getters: {
     getUser: (state) => state.user,
     isUser: (state) => state.isUserAuthenticated,
-    isLoggedUserBlocked: (state) => state.user.isBlocked
+
+    isAdmin: (state) => { return state.user ? state.user.isAdmin : false;},
+
+    isLoggedUserBlocked: (state) => state.user.isBlocked,
+
   },
   actions: {
     login(username, password) {
