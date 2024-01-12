@@ -221,6 +221,7 @@ export default {
                 this.userStore.changeUsername(this.newUsername);
                 this.changeNameDialog = false;
                 this.showSnackbar('Nome de utilizador alterado com sucesso!', 'success');
+                this.newUsername = '';
             } catch (error) {
                 this.showSnackbar(error.message, 'error');
             }
@@ -243,6 +244,7 @@ export default {
                 this.userStore.changeEmail(this.newEmail);
                 this.changeEmailDialog = false;
                 this.showSnackbar('Email alterado com sucesso!', 'success');
+                this.newEmail = '';
             } catch (error) {
                 this.showSnackbar(error.message, 'error');
             }
@@ -251,7 +253,7 @@ export default {
         openChangePasswordDialog() {
             this.changePassword1Dialog = true;
         },
-        closeChangePasswordDialog() {
+        closeChangePassword1Dialog() {
             this.changePassword1Dialog = false;
         },
         closeChangePassword2Dialog() {
@@ -270,6 +272,7 @@ export default {
                 const verificationResult = this.verifyPassword();
                 if (verificationResult === "correct") {
                     this.showSnackbar('As palavras-passes coincidem', 'success');
+                    this.oldPassword = '';
                     this.changePassword1Dialog = false;
                     this.changePassword2Dialog = true;
                 }
@@ -282,6 +285,8 @@ export default {
                 this.userStore.changePassword(this.newPassword, this.confirmPassword);
                 this.changePassword2Dialog = false;
                 this.showSnackbar('Palavra-passe alterada com sucesso', 'success');
+                this.newPassword = '';
+                this.confirmPassword = '';
             } catch (error) {
                 this.showSnackbar(error.message, 'error');
             }
@@ -300,6 +305,7 @@ export default {
     font-family: 'IBM Plex Mono';
     src: url(../assets/fonts/IBMPlexMono-Bold.ttf);
 }
+
 .centered-title-configurations {
     display: flex;
     justify-content: center;
@@ -325,7 +331,6 @@ export default {
     margin-right: 40%;
 }
 .username {
-    margin-left: 5%;
     margin-top: 2.5%;
     font-family: 'IBM Plex Sans';
     font-size: 2rem;
@@ -333,7 +338,10 @@ export default {
     font-weight: 500;
     line-height: normal;
     text-transform: capitalize;
+    position: fixed;
+    margin-left: calc(0.5em + 0.1em * var(--name-length, 80));
 }
+
 .avatar-container {
   display: flex;
   flex-direction: column; 
@@ -459,8 +467,9 @@ export default {
 
 /* Change name css */
 .changeName {
-    margin-top: 0.2em;
+    margin-top: 0.6em;
     cursor: pointer;
+    margin-left: calc(0.1em + 0.1em * var(--name-length, 50));
 }
 .closeButtonName {
   z-index: 999;

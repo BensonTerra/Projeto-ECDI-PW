@@ -124,7 +124,13 @@ export const useUserStore = defineStore("user", {
       try {
         const existingUser = this.users.find((user) => user.username === newUsername);
         if (existingUser) {
-          throw Error("Esse nome de utilizador já existe")
+          throw Error("Esse nome de utilizador já existe.")
+        } else if (!newUsername) {
+          throw Error("Coloque um nome de utilizador.")
+        } else if (this.user.username == newUsername) {
+          throw Error("O nome tem de ser diferente do atual.")
+        } else if (newUsername.length > 11) {
+          throw Error("O nome de utilizador não pode ter mais de 11 caracteres.");
         }
 
         this.user.username = newUsername;
@@ -142,6 +148,10 @@ export const useUserStore = defineStore("user", {
         const existingUser = this.users.find((user) => user.email === newEmail);
         if (existingUser) {
           throw Error("Esse email já existe")
+        }
+
+        if (this.user.email == newEmail) {
+          throw Error("O email tem de ser diferente do atual.")
         }
 
         this.user.email = newEmail;
