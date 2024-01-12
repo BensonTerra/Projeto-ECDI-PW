@@ -1,5 +1,12 @@
 <template>
     <div class="bodyAir">
+      <v-select
+          id="mySelect"
+          label="Estado"
+          @change="filterAirports"
+          v-model="selectedState"
+          :items="['Todos', 'Acre', 'Alagoas', 'Amapá', 'Amazonas', 'Bahia', 'Ceará', 'Distrito Federal', 'Espírito Santo', 'Goiás', 'Maranhão', 'Mato Grosso', 'Mato Grosso do Sul', 'Minas Gerais', 'Pará', 'Paraíba', 'Paraná', 'Pernambuco', 'Piauí', 'Rio de Janeiro', 'Rio Grande do Norte', 'Rio Grande do Sul', 'Rondônia', 'Roraima', 'Santa Catarina', 'São Paulo', 'Sergipe', 'Tocantins']"
+      ></v-select>
       <v-row>
         <v-col v-for="airport in airports" :key="airport.id" cols="4">
           <v-card class="mx-auto" max-width="350">
@@ -35,11 +42,16 @@
     data() {
       return {
         userStore: useUserStore(),
+        selectedState: 'Todos', // Default to show all airports
       };
     },
     computed: {
       airports() {
-        return this.userStore.getAirports;
+        if (this.selectedState === 'Todos') {
+          return this.userStore.getAirports;
+        } else {
+          return this.userStore.getAirports.filter(airport => airport.estado === this.selectedState);
+        }
       },
       isLogged() {
         return this.userStore.isUser;
@@ -55,6 +67,9 @@
       },
       isAirportInFavorites(airport) {
         return this.userStore.getUserFavorites.some((fav) => fav.id === airport.id);
+      },
+      filterAirports(selectedState) {
+        this.selectedState = selectedState;
       },
     },
   };
@@ -90,5 +105,19 @@
   .v-card-actions {
     justify-content: flex-end;
   }
+
+  .v-input {
+    display: grid;
+    flex: 1 1 auto;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    width: 21rem;
+    position: relative;
+    left:67%;
+    border-radius: 1rem !important;
+    
+  }
+  
   </style>
   
