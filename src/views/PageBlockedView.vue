@@ -48,7 +48,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .mainBodyBlocked {
   position: relative;
   min-height: 100vh;

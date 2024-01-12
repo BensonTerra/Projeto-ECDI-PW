@@ -291,7 +291,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .backgroundImage {
     display: flex;
     justify-content: center;

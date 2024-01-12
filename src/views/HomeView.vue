@@ -293,7 +293,7 @@ export default {
   </div>
 </template>
 
-<style>
+<style scoped>
   @font-face {
       font-family: 'IBM Plex Sans';
       src: url(../assets/fonts/IBMPlexSans-SemiBold.ttf);

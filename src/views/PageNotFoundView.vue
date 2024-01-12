@@ -38,7 +38,7 @@
     }
 </script>
 
-<style >
+<style scoped>
 .mainBody {
   position: relative;
   min-height: 100vh;
