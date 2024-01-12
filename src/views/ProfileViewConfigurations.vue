@@ -180,7 +180,6 @@ export default {
             return url;
         },
         passwordLabel() {
-            // Generate a string with the same number of asterisks as the length of the password
             return '*'.repeat(this.loggedUser.password.length);
         },
     },
@@ -248,7 +247,7 @@ export default {
                 this.showSnackbar(error.message, 'error');
             }
         },
-        // Change email logic
+        // Change password logic
         openChangePasswordDialog() {
             this.changePassword1Dialog = true;
         },
