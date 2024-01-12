@@ -3,6 +3,20 @@
     <div class="centered-title-admin">
             Gerir contas
     </div>
+    <div class="centered-search-admin">
+        <v-col>
+            <v-text-field
+                        v-model="filterName"
+                        :loading="loading"
+                        density="compact"
+                        variant="solo"
+                        label="Procurar utilizadores"
+                        append-inner-icon="mdi-magnify"
+                        single-line
+                        hide-details
+            ></v-text-field>
+        </v-col>
+    </div>
     <div class="centered-table-admin">
         <table>
             <thead>
@@ -14,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="user in filteredUsers" :key="user.id">
+                <tr v-for="user in filteredUserSearch" :key="user.id">
                     <td>{{ user.username }}</td>
                     <td>
                         {{ user.isBlocked ? 'Bloqueado' : 'Ativo' }}
@@ -64,6 +78,7 @@ export default {
             userStore: useUserStore(),
             dialogDelete: false,
             userToDelete: null,
+            filterName: "",
         }
     },
     computed: {
@@ -74,6 +89,9 @@ export default {
             const loggedUser = this.userStore.getUser; 
             return this.users.filter(user => user.id !== loggedUser.id);
         },
+        filteredUserSearch() {
+            return this.filteredUsers.filter(user => user.username.toLowerCase().startsWith(this.filterName.toLowerCase()))
+        }
     },
     methods: {
         toggleAccountStatus(user) {
@@ -129,7 +147,11 @@ export default {
     margin-right: 12%;
   
 }
-
+.centered-search-admin {
+    margin-top: 2em;  
+    margin-right: 45%;
+    margin-left: 35%;
+}
 table {
     width: 60%; 
     color: #ECECE4; 
