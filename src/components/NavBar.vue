@@ -25,6 +25,7 @@ export default {
         '/curiosities': 'nav3',
         '/login': 'nav4',
         '/profile': 'nav4',
+        '/dashboard/airports': 'nav2',
         '/profile/admin': 'nav4',
         '/profile/configurations': 'nav4',
         '/profile/favorites': 'nav4',
