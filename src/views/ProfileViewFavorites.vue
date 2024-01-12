@@ -1,5 +1,8 @@
 <template>
     <side-bar></side-bar>
+    <div>
+        <h1>favoritos</h1>
+    </div>
 </template>
 
 <script>

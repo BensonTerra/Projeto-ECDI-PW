@@ -7,6 +7,10 @@ import LoginView from '@/views/LoginView.vue'
 import PageNotFoundView from '@/views/PageNotFoundView.vue'
 import PageBlockedView from '@/views/PageBlockedView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import ProfileViewAdmin from '@/views/ProfileViewAdmin.vue'
+import ProfileViewFavorites from '@/views/ProfileViewFavorites.vue'
+import ProfileViewConfigurations from '@/views/ProfileViewConfigurations.vue'
+
 
 import AirportsView from '@/views/AirportsView.vue'
 
@@ -48,6 +52,24 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: ProfileView
+
+    },
+    {
+      path: '/profile/admin',
+      name: 'profileAdmin',
+      component: ProfileViewAdmin
+
+    },
+    {
+      path: '/profile/favorites',
+      name: 'profileFavorites',
+      component: ProfileViewFavorites
+
+    },
+    {
+      path: '/profile/configurations',
+      name: 'profileConfigurations',
+      component: ProfileViewConfigurations
 
     },
     {

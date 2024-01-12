@@ -4,9 +4,12 @@ export const useUserStore = defineStore("user", {
     isUserAuthenticated: false,
     user: null,
     users: [
-      { email: "simao@gmail.com", username: "simao", password: "12345", isAdmin: false, isBlocked: true ,favoriteAirports:[]},
-      { email: "luisa@gmail.com", username: "luisa", password: "12345", isAdmin: false, isBlocked: false ,favoriteAirports:[] },
-      { email: "nelson@gmail.com", username: "nelson", password: "12345", isAdmin: false, isBlocked: false ,favoriteAirports:[] },
+      {id: 1, email: "simao@gmail.com", username: "simao", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg', favoriteAirports:[] },
+      {id: 2, email: "luisa@gmail.com", username: "luisa", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg',favoriteAirports:[]  },
+      {id: 3, email: "nelson@gmail.com", username: "nelson", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg', favoriteAirports:[]  },
+      {id: 4, email: "admin@gmail.com", username: "admin", password: "admin", isAdmin: true, isBlocked: false, avatar: '../src/assets/avatar/avatar4.png', favoriteAirports:[]  },
+      {id: 5, email: "admin2@gmail.com", username: "admin2", password: "admin2", isAdmin: true, isBlocked: false, avatar: '../src/assets/avatar/avatar4.png', favoriteAirports:[]  },
+      {id: 6, email: "blocked@gmail.com", username: "blocked", password: "blocked", isAdmin: false, isBlocked: true, avatar: '../src/assets/avatar/defaultAvatar.jpg', favoriteAirports:[]  },
     ],
     airports: [
       { id: 1, name: "Aeroporto Internacional de Guarulhos (GRU)", estado: "São Paulo", address: "Rod. Hélio Smidt, s/nº - Aeroporto, Guarulhos - SP, 07190-100, Brasil", image: "/src/assets/airports/guarulhos.jpg" },
@@ -46,6 +49,9 @@ export const useUserStore = defineStore("user", {
     isLoggedUserBlocked: (state) => state.user.isBlocked,
     getAirports:(state) => state.airports,
     getUserFavorites: (state) => state.user.favoriteAirports,
+    isLoggedUserAdmin: (state) => state.user.isAdmin,
+    getUserArray: (state) => state.users,
+    isAdmin: (state) => { return state.user ? state.user.isAdmin : false;},
   },
   actions: {
     login(username, password) {
@@ -74,6 +80,8 @@ export const useUserStore = defineStore("user", {
       }
 
       const newUser = { email, username, password, isAdmin: false, isBlocked: false , favoriteAirports:[]};
+      const id = this.users[this.users.length - 1].id + 1;
+      const newUser = {id: id, email, username, password, isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg'};
       this.users.push(newUser);
 
       this.login(username, password);
@@ -104,6 +112,12 @@ export const useUserStore = defineStore("user", {
         console.error("Error removing from favorites:", error);
       }
     },
+    block(user) {
+        user.isBlocked = !user.isBlocked;
+    },
+    deleteAccount(id) {
+      this.users = this.users.filter((user) => user.id != id);
+    }
   },  
   persist: true,
 });
