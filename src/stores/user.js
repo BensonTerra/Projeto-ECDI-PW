@@ -79,9 +79,8 @@ export const useUserStore = defineStore("user", {
         throw new Error("Utilizador com esse email ou nome de utilizador já existe.");
       }
 
-      const newUser = { email, username, password, isAdmin: false, isBlocked: false , favoriteAirports:[]};
       const id = this.users[this.users.length - 1].id + 1;
-      const newUser = {id: id, email, username, password, isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg'};
+      const newUser = {id: id, email, username, password, isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg', favoriteAirports:[]};
       this.users.push(newUser);
 
       this.login(username, password);
