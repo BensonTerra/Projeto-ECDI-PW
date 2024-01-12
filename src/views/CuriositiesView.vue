@@ -15,6 +15,7 @@
 
         </div>
 
+        <transition name="fade" mode="out-in">
         <div class="carouselCuriosities" v-if="showAirportCarousel">
                 <img class="closeButtonCuriosities" src="../assets/close.png"  @click="closeCarousel">
                 <h2>AEROPORTOS</h2>
@@ -43,8 +44,10 @@
                
                 </v-carousel>
         </div>
+        </transition>
 
 
+        <transition name="fade" mode="out-in">
         <div class="carouselCuriosities" v-if="showFlightsCarousel">
                 <img class="closeButtonCuriosities" src="../assets/close.png"  @click="closeCarousel">
                 <h2 class="voosTitle">VOOS</h2>
@@ -73,7 +76,9 @@
                
                 </v-carousel>
         </div>
+        </transition>
 
+        <transition name="fade" mode="out-in">
         <div class="carouselCuriosities" v-if="showAirplanesCarousel">
                 <img class="closeButtonCuriosities" src="../assets/close.png"  @click="closeCarousel">
                 <h2 class="voosTitle" >AVIOES</h2>
@@ -101,12 +106,13 @@
                 
                 </v-carousel>
         </div>
+        </transition>
 
         <div class="AdminAdd" v-if="isAdmin">
            <img class='addCuriositie' src="../assets/addCuriosities.png"  @click="toggleAddCuriositiesForm">
         </div>
 
-
+        <transition name="fade" mode="out-in">
         <div class="AddCuriositiesForm" v-show="showAddCuriositiesForm" >
             <img class="closeButtonCuriosities" src="../assets/close.png"  @click="closeCarousel">
             <h2 class="addTitle">Adicionar Curiosidade</h2>
@@ -134,6 +140,10 @@
             </button>
             </v-form>
         </div>
+        </transition>
+
+
+        <transition name="fade" mode="out-in">
         <div v-if="showSuccessWarn" class="SuccessMessage">
             <div class="successWarning">
                 <img src="../assets/divWarning.png" usemap="#sucessMap" class="divWarning">
@@ -144,8 +154,10 @@
                 </map>
             </div>
         </div>
+        </transition>
 
 
+        <transition name="fade" mode="out-in">
         <div v-if="showErrorWarn" class="ErrorMessage">
             <div class="ErrorWarning">
                 <img src="../assets/divWarning.png" usemap="#errorMap" class="divWarning">
@@ -156,7 +168,7 @@
                 </map>
             </div>
         </div>
-
+        </transition>
     </div>
 </template>
 
@@ -291,7 +303,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .backgroundImage {
     display: flex;
     justify-content: center;
@@ -451,5 +463,14 @@ textarea {
   right: 1rem;
   bottom: 8rem;
   color: #ECECE4;
+}
+
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.2s;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>
