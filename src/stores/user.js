@@ -116,6 +116,66 @@ export const useUserStore = defineStore("user", {
     },
     deleteAccount(id) {
       this.users = this.users.filter((user) => user.id != id);
+    },
+    changeAvatar(newAvatar) {
+        this.user.avatar = newAvatar;
+    },
+    changeUsername(newUsername) {
+      try {
+        const existingUser = this.users.find((user) => user.username === newUsername);
+        if (existingUser) {
+          throw Error("Esse nome de utilizador já existe")
+        }
+
+        this.user.username = newUsername;
+      } catch (error) {
+        throw error; 
+      }
+    },
+    changeEmail(newEmail) {
+      try {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(newEmail)) {
+          throw new Error("Por favor, insira um email válido.");
+        }
+        const existingUser = this.users.find((user) => user.email === newEmail);
+        if (existingUser) {
+          throw Error("Esse email já existe")
+        }
+
+        this.user.email = newEmail;
+      } catch (error) {
+        throw error; 
+      }
+    },
+    verifyPassword(oldPassword) {
+      try {
+        if (this.user.password == oldPassword) {
+          return "correct"
+        } else {
+          throw new Error("As palavras passes não coincidem.");
+        }
+      } catch (error) {
+        throw error; 
+      }
+    },
+    changePassword(newPassword, confirmNewPassword) {
+      try {
+        if (newPassword !== confirmNewPassword) {
+            throw new Error("As palavras-passe não coincidem.");
+        } else if (newPassword.length < 8) {
+            throw new Error("A palavra-passe deve ter pelo menos 8 caracteres.");
+        } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(newPassword)) {
+            throw new Error("A palavra-passe deve conter pelo menos um caracter especial.");
+        } else if (this.user.password == newPassword) {
+            throw new Error("A nova palavra-passe é igual à antiga.");
+        } else {
+          this.user.password = newPassword;
+        }
+      } catch (error) {
+          throw error; 
+      }
     }
   },  
   persist: true,
