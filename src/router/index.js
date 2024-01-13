@@ -72,6 +72,7 @@ const router = createRouter({
       component: ProfileViewConfigurations
 
     },
+    
     {
       path: "/:pathMatch(.*)",
       name: "pagenotfound",
