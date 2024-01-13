@@ -115,7 +115,7 @@
     line-height: 1.5;
     width: 21rem;
     position: relative;
-    left:67%;
+    left:65%;
     border-radius: 1rem !important;
     
   }

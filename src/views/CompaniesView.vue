@@ -62,7 +62,12 @@
         }
       },
       isCompanyInFavorites(company) {
-        return this.userStore.getUserFavoriteCompanies.some((fav) => fav.id === company.id);
+        if (this.userStore.getUserFavoriteCompanies) {
+            return this.userStore.getUserFavoriteCompanies.some((fav) => fav.id === company.id);
+        } else {
+            // If getUserFavoriteCompanies is undefined, no company can be in favorites
+            return false;
+        }
       },
     },
   };
