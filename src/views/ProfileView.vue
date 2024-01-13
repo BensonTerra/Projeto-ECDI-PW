@@ -1,4 +1,5 @@
 <template>
+  <side-bar></side-bar>
   <div id="containerBrazilMap" class="svg-container">
     <svg
       class="map"
@@ -23,6 +24,7 @@
             @mousemove="updateHoverPosition"
             @mouseover="showAreaName(state.name)"
             @mouseout="hideAreaName"
+            @click="toggleVisited(state)"
           ></path>
           <image
             class="pin"
@@ -84,6 +86,17 @@
       },
       toggleAreaClicked(state) {
         state.clicked = !state.clicked;
+      },
+      toggleVisited(state) {
+        console.log("oi");
+        if (this.isStateInVisited(state)) {
+          this.userStore.removeVisitedState(state);
+        } else {
+          this.userStore.addVisitedState(state);
+        }
+      },
+      isStateInVisited(state) {
+        return this.userStore.getUserVisitedStates.some((visited) => visited.id === state.id);
       },
     },
 

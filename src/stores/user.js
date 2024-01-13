@@ -189,13 +189,14 @@ export const useUserStore = defineStore("user", {
     },
     addVisitedState(state) {
       try {
-        this.user.visitedState.push(state)
+        this.user.visitedStates.push(state)
       } catch (error) {
         console.log("NÃO ENTROU NOS VISITADOS")
       }
     },
 
     removeVisitedState(object) {
+      console.log("Removing visited state:", object);
       try {
         const indexToRemove = this.user.visitedStates.findIndex((visited) => visited.id === object.id);
 
