@@ -4,12 +4,12 @@ export const useUserStore = defineStore("user", {
     isUserAuthenticated: false,
     user: null,
     users: [
-      {id: 1, email: "simao@gmail.com", username: "simao", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg', favoriteAirports:[] },
-      {id: 2, email: "luisa@gmail.com", username: "luisa", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg',favoriteAirports:[]  },
-      {id: 3, email: "nelson@gmail.com", username: "nelson", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg', favoriteAirports:[]  },
-      {id: 4, email: "admin@gmail.com", username: "admin", password: "admin", isAdmin: true, isBlocked: false, avatar: '../src/assets/avatar/avatar4.png', favoriteAirports:[]  },
-      {id: 5, email: "admin2@gmail.com", username: "admin2", password: "admin2", isAdmin: true, isBlocked: false, avatar: '../src/assets/avatar/avatar4.png', favoriteAirports:[]  },
-      {id: 6, email: "blocked@gmail.com", username: "blocked", password: "blocked", isAdmin: false, isBlocked: true, avatar: '../src/assets/avatar/defaultAvatar.jpg', favoriteAirports:[]  },
+      {id: 1, email: "simao@gmail.com", username: "simao", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg', favoriteAirports:[], favoriteCompanies:[] },
+      {id: 2, email: "luisa@gmail.com", username: "luisa", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg',favoriteAirports:[], favoriteCompanies:[]  },
+      {id: 3, email: "nelson@gmail.com", username: "nelson", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg', favoriteAirports:[], favoriteCompanies:[]  },
+      {id: 4, email: "admin@gmail.com", username: "admin", password: "admin", isAdmin: true, isBlocked: false, avatar: '../src/assets/avatar/avatar4.png', favoriteAirports:[], favoriteCompanies:[]  },
+      {id: 5, email: "admin2@gmail.com", username: "admin2", password: "admin2", isAdmin: true, isBlocked: false, avatar: '../src/assets/avatar/avatar4.png', favoriteAirports:[], favoriteCompanies:[]  },
+      {id: 6, email: "blocked@gmail.com", username: "blocked", password: "blocked", isAdmin: false, isBlocked: true, avatar: '../src/assets/avatar/defaultAvatar.jpg', favoriteAirports:[], favoriteCompanies:[]  },
     ],
     airports: [
       { id: 1, name: "Aeroporto Internacional de Guarulhos (GRU)", estado: "São Paulo", address: "Rod. Hélio Smidt, s/nº - Aeroporto, Guarulhos - SP, 07190-100, Brasil", image: "/src/assets/airports/guarulhos.jpg" },
@@ -41,6 +41,11 @@ export const useUserStore = defineStore("user", {
       { id: 27, name: " Aeroporto Internacional de Aracaju - Santa Maria (AJU)", estado: "Sergipe", address: "Av. Sen. Júlio César Leite, 1440 - Aeroporto, Aracaju - SE, 49037-580, Brasil", image: "/src/assets/airports/aracaju.jpg" },
 
     ],
+    companies:[
+      {id:1,name:"LATAM",fullname:"LATAM Airlines Brasil",hub:"Aeroporto Internacional de Guarulhos (GRU)",website:"https://www.latamairlines.com/br/pt",image:"/src/assets/companies/latam.jpg"},
+      {id:2,name:"GOL",fullname:"GOL Linhas Aéreas Inteligentes",hub:"Aeroporto Internacional de Guarulhos (GRU)",website:"https://www.voegol.com.br/",image:"/src/assets/companies/gol.jpg"},
+      {id:3,name:"Azul",fullname:"Azul Linhas Aéreas Brasileiras",hub:"Aeroporto Internacional de Viracopos (VCP),Aeroporto Internacional de Belo Horizonte-Confins (CNF)",website:"https://www.voeazul.com.br/br/pt/home",image:"/src/assets/companies/azul.jpg"},
+    ],
     
   }),
   getters: {
@@ -48,7 +53,9 @@ export const useUserStore = defineStore("user", {
     isUser: (state) => state.isUserAuthenticated,
     isLoggedUserBlocked: (state) => state.user.isBlocked,
     getAirports:(state) => state.airports,
-    getUserFavorites: (state) => state.user.favoriteAirports,
+    getCompanies:(state) => state.companies,
+    getUserFavoriteAirports: (state) => state.user.favoriteAirports,
+    getUserFavoriteCompanies: (state) => state.user.favoriteCompanies,
     isLoggedUserAdmin: (state) => state.user.isAdmin,
     getUserArray: (state) => state.users,
     isAdmin: (state) => { return state.user ? state.user.isAdmin : false;},
@@ -89,7 +96,7 @@ export const useUserStore = defineStore("user", {
       this.isUserAuthenticated = false;
       this.user = null;
     },
-    addFavorite(object) {
+    addFavoriteAirport(object) {
       
       try {
         
@@ -98,7 +105,15 @@ export const useUserStore = defineStore("user", {
         console.log("NÃO ENTROU NOS FAVORITOS")
       }
     },
-    removeFavorite(object) {
+    addFavoriteCompany(object) {
+      
+      try {
+        this.user.favoriteCompanies.push(object)
+      } catch (error) {
+        console.log("NÃO ENTROU NOS FAVORITOS")
+      }
+    },
+    removeFavoriteAirport(object) {
       try {
         const indexToRemove = this.user.favoriteAirports.findIndex((fav) => fav.id === object.id);
     
@@ -106,6 +121,19 @@ export const useUserStore = defineStore("user", {
           this.user.favoriteAirports.splice(indexToRemove, 1);
         } else {
           console.log("Airport not found in favorites");
+        }
+      } catch (error) {
+        console.error("Error removing from favorites:", error);
+      }
+    },
+    removeFavoriteCompany(object) {
+      try {
+        const indexToRemove = this.user.favoriteCompanies.findIndex((fav) => fav.id === object.id);
+    
+        if (indexToRemove !== -1) {
+          this.user.favoriteCompanies.splice(indexToRemove, 1);
+        } else {
+          console.log("Company not found in favorites");
         }
       } catch (error) {
         console.error("Error removing from favorites:", error);

@@ -13,6 +13,7 @@ import ProfileViewConfigurations from '@/views/ProfileViewConfigurations.vue'
 
 
 import AirportsView from '@/views/AirportsView.vue'
+import CompaniesView from '@/views/CompaniesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -89,6 +90,13 @@ const router = createRouter({
       path: '/dashboard/airports',
       name: 'airports',
       component: AirportsView
+
+    },
+
+    {
+      path: '/dashboard/companies',
+      name: 'companies',
+      component: CompaniesView
 
     },
 

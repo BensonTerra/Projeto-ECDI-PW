@@ -60,13 +60,13 @@
     methods: {
       toggleFavorite(airport) {
         if (this.isAirportInFavorites(airport)) {
-          this.userStore.removeFavorite(airport);
+          this.userStore.removeFavoriteAirport(airport);
         } else {
-          this.userStore.addFavorite(airport);
+          this.userStore.addFavoriteAirport(airport);
         }
       },
       isAirportInFavorites(airport) {
-        return this.userStore.getUserFavorites.some((fav) => fav.id === airport.id);
+        return this.userStore.getUserFavoriteAirports.some((fav) => fav.id === airport.id);
       },
       filterAirports(selectedState) {
         this.selectedState = selectedState;
@@ -80,19 +80,20 @@
     padding-top: 3rem;
   }
   .mx-auto {
-    border-radius: 1rem!important;
-    margin: 1rem; /* Adjust the margin as needed */
+    border-radius: 1rem !important;
+    margin: 1rem !important; /* Adjust the margin as needed */
   }
   
   .v-row {
-    padding-left: 14rem;
-    padding-right: 14rem;
+    padding-left: 14rem !important;
+    padding-right: 14rem !important;
   }
   .v-card {
     background-color: #183D3D !important;
   }
   .v-card-text {
-    color: #ECECE4;
+    color: #ECECE4 !important;
+    background-color: #183D3D !important;
   }
   
   .airportTitle {
