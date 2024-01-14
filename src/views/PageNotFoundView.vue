@@ -1,12 +1,16 @@
 <template>
     <div class='mainBody'>
         
-        <div class="background"> </div>
+        <div class="background">  
+            <div class="airplane">
+
+            </div>
+        </div>
         <div class="Content">
 
             <div class="TitleContent">
                 <h1 class="error"> 404 </h1>
-                <h1> Perdido nas Nuvens  <br> <img src="..\assets\divederPageNotFound.png">  </h1>
+                <h1> Perdido nas Nuvens  <br> <img src="../assets/pageNotFound/divederPageNotFound.png">  </h1>
             </div>
             <div class="TextContent">
                 <p>Ops, parece que você perdeu-se nas nuvens. <br> 
@@ -51,12 +55,32 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url(../assets/PageNotFoundBackground.png)!important; 
+  background-image: url(../assets/pageNotFound/PageNotFoundBackground1.png)!important; 
   background-size: cover;
   background-position: 50%;
-
 }
 
+.airplane {
+  position: absolute;
+  width: 46.82381rem;
+  height: 13.33888rem;    
+  background-image:  url(../assets/pageNotFound/airplane.png)!important; 
+  background-size: contain;
+  background-repeat: no-repeat;
+  animation: flyUpDown 2s infinite alternate;
+  top: 38%; 
+  left: 51%; 
+  transform: translate(-50%, -50%); 
+}
+
+@keyframes flyUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(2em); 
+  }
+}
 
 /*Content Section */
 .Content {
@@ -102,6 +126,7 @@
   font-size: 1.2rem;
   font-weight: bold;
   text-align: center;
+  cursor: pointer;
 
 }
 

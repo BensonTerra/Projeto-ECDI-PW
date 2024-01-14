@@ -10,8 +10,8 @@ import ProfileView from '@/views/ProfileView.vue'
 import ProfileViewAdmin from '@/views/ProfileViewAdmin.vue'
 import ProfileViewFavorites from '@/views/ProfileViewFavorites.vue'
 import ProfileViewConfigurations from '@/views/ProfileViewConfigurations.vue'
-
-
+import ProfileViewFavoritesAirports from '@/views/ProfileViewFavoritesAirports.vue' 
+import ProfileViewFavoritesCompanies from '@/views/ProfileViewFavoritesCompanies.vue'
 import AirportsView from '@/views/AirportsView.vue'
 import CompaniesView from '@/views/CompaniesView.vue'
 
@@ -65,6 +65,18 @@ const router = createRouter({
       path: '/profile/favorites',
       name: 'profileFavorites',
       component: ProfileViewFavorites
+
+    },
+    {
+      path: '/profile/favorites/airports',
+      name: 'profileFavoritesAirports',
+      component: ProfileViewFavoritesAirports
+
+    },
+    {
+      path: '/profile/favorites/companies',
+      name: 'profileFavoritesCompanies',
+      component: ProfileViewFavoritesCompanies
 
     },
     {

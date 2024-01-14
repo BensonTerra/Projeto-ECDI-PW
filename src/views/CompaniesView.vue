@@ -18,7 +18,7 @@
             </v-card-text>
 
             <v-card-text>
-              <div><b>Hub: </b>Website: {{ company.website }}</div>
+              <div><b>Website:</b> {{ company.website }}</div>
             </v-card-text>
   
             <v-card-actions>

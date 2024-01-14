@@ -5,9 +5,9 @@
         <div class="ContentBlocked">
 
             <div class="TitleContentBlocked">
-                <img class="iconBlocked" src="..\assets\blocked.png">
+                <img class="iconBlocked" src="../assets/pageBlocked/blocked.png">
                 <h1> Check-In Negado   <br>   </h1>
-                <img class='dividerBlocked' src="..\assets\dividerPageBlocked.png">
+                <img class='dividerBlocked' src="../assets/pageBlocked/dividerPageBlocked.png">
             </div>
             <div class="TextContentBlocked">
                 <p>
@@ -61,7 +61,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url(../assets/BlockedBackground.png) !important;
+  background-image: url(../assets/pageBlocked/BlockedBackground.png) !important;
   background-size: cover;
   background-position: 50%;
 

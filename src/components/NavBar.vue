@@ -30,6 +30,8 @@ export default {
         '/profile/admin': 'nav4',
         '/profile/configurations': 'nav4',
         '/profile/favorites': 'nav4',
+        '/profile/favorites/airports': 'nav4',
+        '/profile/favorites/companies': 'nav4',
         // Add more routes and corresponding image names as needed
       },
       currentImageSource: "",
@@ -47,7 +49,9 @@ export default {
         this.$route.path.startsWith('/profile') ||
         this.$route.name === 'profileAdmin' ||
         this.$route.name === 'profileFavorites' ||
-        this.$route.name === 'profileConfigurations'
+        this.$route.name === 'profileConfigurations' ||
+        this.$route.name === 'profileFavoritesAirports' ||
+        this.$route.name === 'profileFavoritesCompanies'
       );
     }
   },
