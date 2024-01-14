@@ -145,6 +145,9 @@ export const useUserStore = defineStore("user", {
     deleteAccount(id) {
       this.users = this.users.filter((user) => user.id != id);
     },
+    deleteAirportFromFavorites(id) {
+      this.user.favoriteAirports = this.user.favoriteAirports.filter((airport) => airport.id !== id);
+    },
     changeAvatar(newAvatar) {
         this.user.avatar = newAvatar;
     },

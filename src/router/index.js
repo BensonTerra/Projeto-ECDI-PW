@@ -68,8 +68,8 @@ const router = createRouter({
 
     },
     {
-      path: '/profile/favorites/aiports',
-      name: 'profileFavoritesAiports',
+      path: '/profile/favorites/airports',
+      name: 'profileFavoritesAirports',
       component: ProfileViewFavoritesAirports
 
     },

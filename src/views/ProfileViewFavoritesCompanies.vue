@@ -1,13 +1,15 @@
 <template>
-    <div>
-        <h1>COMPANHIAS FAVORITOS</h1>
-    </div>
+    <side-bar></side-bar>
+
 </template>
 
 <script>
-    export default {
-        
-    }
+import SideBar from '@/components/SideBar.vue';
+export default {
+    components: {
+        SideBar,
+    },
+}
 </script>
 
 <style lang="scss" scoped>

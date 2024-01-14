@@ -1,13 +1,12 @@
 <template>
     <side-bar></side-bar>
     <div class="centered-title-favorites">Favoritos</div>
-    <div class="centered-airport-favorites" @click="redirectTo('profileFavoritesAiports')">
+    <div class="centered-airport-favorites" @click="redirectTo('profileFavoritesAirports')">
         <div class="aiport-title" >Aeroportos</div>
     </div>
     <div class="centered-companies-favorites" @click="redirectTo('profileFavoritesCompanies')">
         <div class="aiport-title" >Companhias</div>
     </div>
-
 </template>
 
 <script>
@@ -101,6 +100,8 @@ export default {
     left: 0.5em;
     top: 0.5em;
 }
+
+
 
 
 
