@@ -148,6 +148,9 @@ export const useUserStore = defineStore("user", {
     deleteAirportFromFavorites(id) {
       this.user.favoriteAirports = this.user.favoriteAirports.filter((airport) => airport.id !== id);
     },
+    deleteCompanyFromFavorites(id) {
+      this.user.favoriteCompanies = this.user.favoriteCompanies.filter((company) => company.id !== id);
+    },
     changeAvatar(newAvatar) {
         this.user.avatar = newAvatar;
     },

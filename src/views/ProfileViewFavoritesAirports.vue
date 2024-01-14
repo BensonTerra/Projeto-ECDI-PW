@@ -1,7 +1,7 @@
 <template>
     <side-bar></side-bar>
     <div class="centered-title-favorites">Aeroportos Favoritos</div>
-    <v-row>
+    <v-row v-if="favoriteAirports.length > 0">
         <v-col v-for="airport in favoriteAirports" :key="airport.id" cols="6">
             <v-card class="rounded-card" max-width="400">
                 <v-img class="rounded-image" :src="airport.image" height="400" cover></v-img>
@@ -24,6 +24,10 @@
             </v-card>
         </v-col>
     </v-row>
+    <div v-else class="no-favorites-message">
+        <v-icon>mdi-alert</v-icon> Não tem nenhum aeroporto nos favoritos.
+        <v-btn class="airportPageButton" @click="redirectTo('airports')">Ir para a página de aeroportos</v-btn>
+    </div>
     <v-dialog v-model="dialogDelete" max-width="400">
             <v-card class="cardDelete">
                 <button class="closeButtonDelete">
@@ -70,8 +74,8 @@ export default {
         }
     },
     methods: {
-        prepareDelete(user) {
-            this.airportToDelete = user;
+        prepareDelete(airport) {
+            this.airportToDelete = airport;
             this.dialogDelete = true;
         },
         deleteAccount() {
@@ -85,7 +89,9 @@ export default {
         },
         cancelDelete() {
             this.dialogDelete = false;
-            this.airportToDelete = null; 
+            setTimeout(() => {
+                this.airportToDelete = null; 
+            }, 1000);
         },
         // Informative messages
         showSnackbar(message, color) {
@@ -93,6 +99,9 @@ export default {
             this.snackbarColor = color; 
             this.snackbar = true;
         },
+        redirectTo(pathName) {
+            this.$router.push({ name: pathName });
+        }
     },
     
 }
@@ -118,6 +127,21 @@ export default {
     font-weight: 700;
     line-height: normal;
     margin-right: 12%;
+}
+
+.no-favorites-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  font-size: 1.5rem;
+  color: #ECECE4;
+  margin-right: 12%;
+  flex-direction: column; 
+}
+.airportPageButton {
+  margin-top: 1em; 
+  margin-bottom: 1em; 
 }
 
 .rounded-card {
