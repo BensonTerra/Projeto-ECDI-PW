@@ -14,6 +14,7 @@ import ProfileViewFavoritesAirports from '@/views/ProfileViewFavoritesAirports.v
 import ProfileViewFavoritesCompanies from '@/views/ProfileViewFavoritesCompanies.vue'
 import AirportsView from '@/views/AirportsView.vue'
 import CompaniesView from '@/views/CompaniesView.vue'
+import FlightsView from '@/views/FlightsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -110,6 +111,13 @@ const router = createRouter({
       path: '/dashboard/companies',
       name: 'companies',
       component: CompaniesView
+
+    },
+
+    {
+      path: '/dashboard/flights',
+      name: 'flights',
+      component: FlightsView
 
     },
 
