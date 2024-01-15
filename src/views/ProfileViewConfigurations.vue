@@ -36,6 +36,9 @@
                 </v-text-field>  
                 <v-btn class="passwordButton" @click="openChangePasswordDialog">Editar</v-btn>
             </div>
+            <div class="statsCard">
+              <canvas id="myChart"></canvas>
+            </div>
         </div>
 
     </div>
@@ -145,6 +148,9 @@
 <script>
 import SideBar from '@/components/SideBar.vue';
 import { useUserStore } from '@/stores/user';
+import { Chart } from 'chart.js/auto';
+
+
 export default {
     components: {
         SideBar,
@@ -169,7 +175,24 @@ export default {
             oldPassword: '',
             newPassword: '',
             confirmPassword: '',
+            chartData: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: 'My Dataset',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    data: [65, 59, 80, 81, 56, 55, 40],
+                }],
+            },
         }
+    },
+    mounted() {
+        // Initialize the chart in the mounted hook
+        const ctx = document.getElementById('myChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: this.chartData,
+        });
     },
     computed: {
         loggedUser() {
@@ -365,6 +388,15 @@ export default {
     background-color: #183D3D;
     margin-left: 18em;
     margin-top: 1em;
+}
+
+.statsCard {
+    width: 16rem;
+    height: 16rem;
+    border-radius: 1.5625rem;
+    background-color: #183D3D;
+    margin-left: 35em;
+    margin-top: -8.3em
 }
 
 .emailInput {
