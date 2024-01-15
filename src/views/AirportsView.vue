@@ -9,30 +9,35 @@
       ></v-select>
       <v-row>
         <v-col v-for="airport in airports" :key="airport.id" cols="4">
-          <v-card class="mx-auto" max-width="350">
-            <v-img class="align-end text-white" height="200" :src="airport.image" cover></v-img>
-  
-            <div class="airportTitle">
-              {{ airport.name }}
-            </div>
-  
-            <v-card-text>
-              <div>{{ airport.address }}</div>
-            </v-card-text>
-  
-            <v-card-actions>
-              <v-btn color="orange" v-if="isLogged" @click="toggleFavorite(airport)">
-                <img
-                  :src="isAirportInFavorites(airport) ? '/src/assets/icons/favoriteOn.png' : '/src/assets/icons/favoriteOff.png'"
-                  alt="Favorite"
-                  style="width: 20px; height: 20px;"
-                />
-              </v-btn>
-            </v-card-actions>
+          <v-card class="rounded-card" max-width="400">
+            <v-img class="rounded-image" height="400" :src="airport.image" cover></v-img>
+            <div class="card-content">
+                  <div class="text-container">
+                      <div class="airport-title">
+                          {{ airport.name }}
+                      </div>
+                      <div class="descriptionState">
+                          Estado: {{ airport.estado }}
+                      </div>
+                      <div class="descriptionAddress">
+                          Endereço: {{ airport.address }}
+                      </div>
+                  </div>
+                  <v-btn class="favorite-btn" v-if="isLogged" @click="toggleFavorite(airport)">
+                        <img
+                      :src="isAirportInFavorites(airport) ? '/src/assets/icons/favoriteOn.png' : '/src/assets/icons/favoriteOff.png'"
+                      alt="Favorite"
+                      style="width: 2em; height: 2em;"
+                    />
+                  </v-btn>
+            </div>   
           </v-card>
         </v-col>
       </v-row>
     </div>
+    <v-snackbar v-model="snackbar" :timeout="timeout" :color="snackbarColor">
+        {{ snackbarMessage }}
+    </v-snackbar>
   </template>
   
   <script>
@@ -43,6 +48,10 @@
       return {
         userStore: useUserStore(),
         selectedState: 'Todos', // Default to show all airports
+        snackbar: false,
+        timeout: 3000, 
+        snackbarMessage: '', 
+        snackbarColor: '', 
       };
     },
     computed: {
@@ -60,64 +69,142 @@
     methods: {
       toggleFavorite(airport) {
         if (this.isAirportInFavorites(airport)) {
-          this.userStore.removeFavorite(airport);
+          this.userStore.removeFavoriteAirport(airport);
+          this.showSnackbar(`${airport.name} removido com sucesso aos favoritos!`, 'success')
         } else {
-          this.userStore.addFavorite(airport);
+          this.userStore.addFavoriteAirport(airport);
+          this.showSnackbar(`${airport.name} adicionado com sucesso aos favoritos!`, 'success')
         }
       },
       isAirportInFavorites(airport) {
-        return this.userStore.getUserFavorites.some((fav) => fav.id === airport.id);
+        return this.userStore.getUserFavoriteAirports.some((fav) => fav.id === airport.id);
       },
       filterAirports(selectedState) {
         this.selectedState = selectedState;
+      },
+      // Informative messages
+      showSnackbar(message, color) {
+            this.snackbarMessage = message;
+            this.snackbarColor = color; 
+            this.snackbar = true;
       },
     },
   };
   </script>
   
   <style scoped>
+  @font-face {
+    font-family: 'IBM Plex Sans';
+    src: url(../assets/fonts/IBMPlexSans-SemiBold.ttf);
+  }
+  @font-face {
+      font-family: 'IBM Plex Mono';
+      src: url(../assets/fonts/IBMPlexMono-Bold.ttf);
+  }
   .bodyAir {
     padding-top: 3rem;
   }
-  .mx-auto {
-    border-radius: 1rem!important;
-    margin: 1rem; /* Adjust the margin as needed */
-  }
-  
-  .v-row {
-    padding-left: 14rem;
-    padding-right: 14rem;
-  }
-  .v-card {
-    background-color: #183D3D !important;
-  }
-  .v-card-text {
-    color: #ECECE4;
-  }
-  
-  .airportTitle {
-    color: #ECECE4;
-    font-weight: bold;
-    padding: 1rem;
-    padding-bottom: 0rem;
-  }
-  
-  .v-card-actions {
-    justify-content: flex-end;
-  }
-
-  .v-input {
-    display: grid;
-    flex: 1 1 auto;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    width: 21rem;
+  .rounded-card {
     position: relative;
-    left:67%;
-    border-radius: 1rem !important;
-    
-  }
+    border-radius: 1.5rem;
+    overflow: hidden;
+    margin-top: 1rem;
+    margin-left: auto; /* Center the cards horizontally */
+    margin-right: auto; /* Center the cards horizontally */
+    cursor: pointer;
+  } 
+
+  .rounded-image {
+    border-radius: 1.5rem 1.5rem 0 0;
+  } 
+
+  .card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    background: rgba(0, 25, 31, 0.8);
+    border-radius: 0 0 1.5rem 1.5rem;
+    display: flex;
+    justify-content: space-between; 
+}
+
+.descriptionState {
+  display: none;
+  color: rgba(236, 236, 228, 0.8);
+  font-family: IBM Plex Mono;
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-top: 1em;
+}
+
+.descriptionAddress {
+  display: none;
+  color: rgba(236, 236, 228, 0.5);
+  font-family: IBM Plex Mono;
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 100;
+  line-height: normal;
+}
+
+.card-content:hover .descriptionState,
+.card-content:hover .descriptionAddress {
+  display: block;
+}
+.text-container {
+    flex-grow: 1; 
+}
+.airport-title {
+    color: #ECECE4;
+    font-family: IBM Plex Mono;
+    font-size: 1.3125rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: center;
+}
+  
+.v-col-4 {
+    flex: 0 0 30% !important;
+}
+  
+.favorite-btn {
+    background: transparent;
+}
+
+.favorite-btn img {
+    transition: transform 0.3s;
+}
+
+.favorite-btn:hover img {
+    transform: scale(1.2);
+}
+
+.v-input {
+  display: grid;
+  flex: 1 1 auto;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  width: 21rem;
+  position: relative;
+  left:65%;
+  border-radius: 1rem !important;
+}
+
+.v-row {
+  margin-left: 10% !important;
+}
+
+.v-snack {
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+}
   
   </style>
   

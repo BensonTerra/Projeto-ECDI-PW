@@ -7,7 +7,7 @@
   </div>
 
   <div class="highlight">
-    <img src="../assets/background.png">
+    <img src="../assets/landingPage/background.png">
     <div class="content">
       <h1>Consulte nossos voos em<br> tempo real.</h1>
       <p> Acompanhe os voos de sua familia e descubra todas as <br>suas informações na nossa companhia! </p>
@@ -18,12 +18,12 @@
   </div>
 
   <div class="arrowGoDown" v-show="showArrow" @click="arrowGoDown">
-  <img src="../assets/arrow.png">
+  <img src="../assets/landingPage/arrow.png">
   </div>
 
   <div id="scrollTarget">
   <div class="Filter">
-    <img src="../assets/filtrarFoto.png">
+    <img src="../assets/landingPage/filtrarFoto.png">
     <div class="filterContent">
       <h1>Filtre pelas suas <br> preferências.</h1>
       <p>Escolha o aeroporto e o destino para <br> achar o seu voo rapidamente!</p>
@@ -32,7 +32,7 @@
 </div>
 
   <div class="BrazilMap">
-    <img src="..\assets\backgroundPersonalize.png">
+    <img src="../assets/landingPage/backgroundPersonalize.png">
     <div class="BrazilMapContent">
       <h1>Personalize seu mapa <br> com suas viagens.</h1>
       <p>Explore a opção de marcar no mapa <br> e crie um Brasil só seu <br> com cada estado que já visitou!</p>
@@ -40,7 +40,7 @@
   </div>
 
   <div class='curiosities'>
-   <img src="..\assets\curiosidadesFoto.png" class="curiositiesImage">
+   <img src="../assets/landingPage/curiosidadesFoto.png" class="curiositiesImage">
    <div class="curiositiesContent">
     <h1>Descubra novas curiosidades <br>sobre aviação.</h1>
     <p>Aprenda curiosidades divertidas sobre aviação e compartilhe <br>com os seus colegas os nossos fatos divertidos!</p>
@@ -48,7 +48,7 @@
   </div>
 
   <div class="MeetUs">
-  <img src="../assets/sobrenósBackground.png">
+  <img src="../assets/landingPage/sobrenósBackground.png">
   <div class="MeetUsContent">
     <h1>Agora que sabe um pouco sobre o que <br> temos para si, venha conhecer-nos!</h1>
     <p>Embarque nesta viagem connosco e conheça um pouco sobre nós e o projeto!</p>
@@ -57,7 +57,7 @@
 
      
   <div class="MeetUsContentDark">
-    <img src="../assets/Nós.png">
+    <img src="../assets/landingPage/Nós.png">
     <div class="MeetUsDetails">
   
       <p>Somos um grupo de 3 estudantes  <br> da Licenciatura de Tecnologias e 
@@ -74,7 +74,7 @@
     </router-link>
 
     <div class="arrowGoUp"  @click="arrowGoUp" >
-    <img src="../assets/arrowUp.png">
+    <img src="../assets/landingPage/arrowUp.png">
     </div>
 
 </div>
