@@ -37,7 +37,7 @@ export default {
 }
 .cards-container {
   display: flex; 
-  margin-top: 2em;
+  margin-top: 5em;
 }
 
 /* Styles for the Airport Card */
@@ -64,7 +64,7 @@ export default {
     border-radius: 1.25rem;
     opacity: 0.83;
     background: #00191F;
-    margin-left: 15%;
+    margin-left: 20%;
     overflow: hidden; 
     transition: transform 0.3s; 
     z-index: 1;
@@ -144,7 +144,7 @@ export default {
     border-radius: 1.25rem;
     opacity: 0.83;
     background: #00191F;
-    margin-left: 15%; 
+    margin-left: 20%; 
     margin-top: 2%; 
     overflow: hidden;
     transition: transform 0.3s;

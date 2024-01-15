@@ -37,7 +37,7 @@ export default {
     justify-content: center;
     color: #ECECE4;
     font-family: 'IBM Plex Mono';
-    margin-top: 0.1em;
+    margin-top: 1.5em;
     font-size: 3rem;
     font-style: normal;
     font-weight: 700;
@@ -53,7 +53,8 @@ export default {
     border-radius: 1.25rem;
     opacity: 0.83;
     background: #00191F;
-    margin-left: 12%;
+    margin-left: 20%;
+    margin-top: 1.5em;
     overflow: hidden; 
     transition: transform 0.3s; 
     z-index: 1;
