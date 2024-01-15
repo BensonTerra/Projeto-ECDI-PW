@@ -233,6 +233,7 @@ export default {
     },
   },
 };
+
 </script>
 
 <template>

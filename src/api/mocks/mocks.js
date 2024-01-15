@@ -27,7 +27,7 @@ export default [
           "flight": {
             "name": 'Boeing 747', 
             "aircraftCode": "B741",
-            "company": 'TropicalAir Brasil', 
+            "company": 'LATAM', 
             "callSign": "ARG1132",
             "number": 3127,
             "image": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Ba_b747-400_g-bnle_arp.jpg",
@@ -67,7 +67,7 @@ export default [
           "flight": {
             "name": "Airbus A320",
             "aircraftCode": "A320",
-            "company": "TropicalAir Brasil",
+            "company": "Azul",
             "callSign": "BRZ456",
             "number": 7890,
             "image": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Jetstar_Airbus_A320_in_flight_%286768081241%29_crop.jpg",
@@ -107,7 +107,7 @@ export default [
           "flight": {
             "name": "Airbus A330",
             "aircraftCode": "A330",
-            "company": "TropicalAir Brasil",
+            "company": "GOL",
             "callSign": "BWG987",
             "number": 5432,
             "image": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Turkish_Airlines%2C_Airbus_A330-300_TC-JNL_NRT_%2823708073592%29.jpg",
@@ -147,7 +147,7 @@ export default [
           "flight": {
             "name": "Airbus A350",
             "aircraftCode": "A350",
-            "company": "TropicalAir Brasil",
+            "company": "GOL",
             "callSign": "BRW789",
             "number": 9876,
             "image": "https://upload.wikimedia.org/wikipedia/commons/d/d6/Qatar_Airways_A350-941_%28A7-ALA%29_landing_at_Frankfurt_Airport.jpg",
@@ -187,7 +187,7 @@ export default [
           "flight": {
             "name": "Boeing 747",
             "aircraftCode": "B741",
-            "company": "TropicalAir Brasil",
+            "company": "Azul",
             "callSign": "ADE789",
             "number": 4489,
             "image": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Ba_b747-400_g-bnle_arp.jpg",
@@ -227,7 +227,7 @@ export default [
           "flight": {
             "name": "Airbus A320",
             "aircraftCode": "A320",
-            "company": "TropicalAir Brasil",
+            "company": "LATAM",
             "callSign": "AXG1132",
             "number": 3247,
             "image": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Jetstar_Airbus_A320_in_flight_%286768081241%29_crop.jpg",
@@ -267,7 +267,7 @@ export default [
           "flight": {
             "name": "Airbus A330",
             "aircraftCode": "A330",
-            "company": "TropicalAir Brasil",
+            "company": "LATAM",
             "callSign": "DAR848",
             "number": 4946,
             "image": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Turkish_Airlines%2C_Airbus_A330-300_TC-JNL_NRT_%2823708073592%29.jpg",
@@ -307,7 +307,7 @@ export default [
           "flight": {
             "name": "Airbus A350",
             "aircraftCode": "A350",
-            "company": "TropicalAir Brasil",
+            "company": "GOL",
             "callSign": "IDP416",
             "number": 5410,
             "image": "https://upload.wikimedia.org/wikipedia/commons/d/d6/Qatar_Airways_A350-941_%28A7-ALA%29_landing_at_Frankfurt_Airport.jpg",
@@ -347,7 +347,7 @@ export default [
           "flight": {
             "name": "Boeing 747",
             "aircraftCode": "B741",
-            "company": "TropicalAir Brasil",
+            "company": "Azul",
             "callSign": "DFA154",
             "number": 8914,
             "image": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Ba_b747-400_g-bnle_arp.jpg",
@@ -387,7 +387,7 @@ export default [
           "flight": {
             "name": "Airbus A320",
             "aircraftCode": "A320",
-            "company": "TropicalAir Brasil",
+            "company": "LATAM",
             "callSign": "NHU189",
             "number": 5604,
             "image": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Jetstar_Airbus_A320_in_flight_%286768081241%29_crop.jpg",

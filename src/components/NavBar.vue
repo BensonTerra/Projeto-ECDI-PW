@@ -27,6 +27,7 @@ export default {
         '/profile': 'nav4',
         '/dashboard/airports': 'nav2',
         '/dashboard/companies': 'nav2',
+        '/dashboard/flights': 'nav2',
         '/profile/admin': 'nav4',
         '/profile/configurations': 'nav4',
         '/profile/favorites': 'nav4',

@@ -12,15 +12,15 @@ export const useAirplaneStore = defineStore('airplane', {
     getAirplanes: (state) => state.airplanes,
   },
   actions: {
-    async fetchAirplane() {
-      try {
-        const data = await api.get(API_BASE_URL, 'airplane');
-        this.airplanes = data;
-        // console.log(this.airplanes);
-      } catch (error) {
-        console.error('Error in store fetching objects:', error);
-        throw error;
-      }
-    },
+      async fetchAirplane() {
+          try {
+              const data = await api.get(API_BASE_URL, 'airplane');
+              this.airplanes = data;
+              console.log(this.airplanes);
+          } catch (error) {
+              console.error('Error in store fetching objects:', error);
+              // Handle error gracefully
+          }
+      },
   },
 });
