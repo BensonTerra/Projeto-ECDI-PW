@@ -15,6 +15,8 @@ import ProfileViewFavoritesCompanies from '@/views/ProfileViewFavoritesCompanies
 import AirportsView from '@/views/AirportsView.vue'
 import CompaniesView from '@/views/CompaniesView.vue'
 import FlightsView from '@/views/FlightsView.vue'
+import { useUserStore } from "@/stores/user";
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -53,38 +55,43 @@ const router = createRouter({
     {
       path: '/profile',
       name: 'profile',
-      component: ProfileView
+      component: ProfileView,
+      meta: { requiresAuth: true },
 
     },
     {
       path: '/profile/admin',
       name: 'profileAdmin',
-      component: ProfileViewAdmin
+      component: ProfileViewAdmin,
+      meta: { requiresAuth: true },
 
     },
     {
       path: '/profile/favorites',
       name: 'profileFavorites',
-      component: ProfileViewFavorites
+      component: ProfileViewFavorites,
+      meta: { requiresAuth: true },
 
     },
     {
       path: '/profile/favorites/airports',
       name: 'profileFavoritesAirports',
-      component: ProfileViewFavoritesAirports
+      component: ProfileViewFavoritesAirports,
+      meta: { requiresAuth: true },
 
     },
     {
       path: '/profile/favorites/companies',
       name: 'profileFavoritesCompanies',
-      component: ProfileViewFavoritesCompanies
+      component: ProfileViewFavoritesCompanies,
+      meta: { requiresAuth: true },
 
     },
     {
       path: '/profile/configurations',
       name: 'profileConfigurations',
-      component: ProfileViewConfigurations
-
+      component: ProfileViewConfigurations,
+      meta: { requiresAuth: true },
     },
     
     {
@@ -123,5 +130,17 @@ const router = createRouter({
 
   ]
 })
+
+router.beforeEach((to, from) => {
+  // instead of having to check every route record with
+  // to.matched.some(record => record.meta.requiresAuth)
+  if (to.meta.requiresAuth && !useUserStore().isUser) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    return {
+      path: "/login",
+    };
+  }
+});
 
 export default router
