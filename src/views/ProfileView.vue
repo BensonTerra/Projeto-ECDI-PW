@@ -6,7 +6,7 @@
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
       role="img"
-      width="460"
+      width="500"
       height="465"
     >
       <g class="model-green">
@@ -16,28 +16,38 @@
           :class="['state', { 'clicked': state.clicked }]"
           :xlink:href="`#${state.id}`"
           @click="toggleAreaClicked(state)"
+          
         >
           <desc class="description">{{ state.name }}</desc>
           <path
             class="shape"
+            :class="{ 'clicked-shape': state.clicked }"
             :d="state.path"
             @mousemove="updateHoverPosition"
             @mouseover="showAreaName(state.name)"
             @mouseout="hideAreaName"
             @click="toggleVisited(state)"
+           
           ></path>
           <image
             class="pin"
             v-if="state.clicked"
             :xlink:href="state.src" 
-            width="7vw"
-            height="7vh"
-            :x="state.x - 7"
-            :y="state.y - 7"
+            :width="state.width + 'vw'"
+            :height="state.height + 'vh'"
+            :x="state.x - state.width"
+            :y="state.y - state.height"
+            @mouseover="showImageInfo(state)"
+            @mouseout="hideImageInfo"
           ></image>
+
+          
+
         </a>
       </g>
     </svg>
+
+   
 
     <div
       class="hoverState"
@@ -47,6 +57,37 @@
       <p>{{ areaName }}</p>
     </div>
   </div>
+
+
+  <div class="card2">
+            <v-card
+            v-if="hoveredImageInfo"
+            tile
+            color="#00191F"
+            class="tooltip"
+            max-width="20vw" 
+            
+            :style="{ top: '50%', left: '0' }"
+            >
+          
+            <v-img
+              class="align-end text-white"
+              height="200"
+              :src="hoveredImageInfo.src"
+              cover
+            ></v-img>
+            <v-card-title style="font-size: 1em; color: #ECECE4;">
+              {{ hoveredImageInfo.title }}
+            </v-card-title>
+            <v-card-title style="font-size: 0.6em; color: #ECECE4;">
+              {{ hoveredImageInfo.place }}
+            </v-card-title>
+            <v-card-title style="font-size: 0.6em; color: #8c8c8a; white-space: normal; line-height: 0.9rem;">
+              {{ hoveredImageInfo.desc }}
+            </v-card-title>
+           
+          </v-card>
+          </div>
 </template>
   
   <script>
@@ -68,6 +109,8 @@
         areaClicked: false,
         nameState:"",
         userStore: useUserStore(),
+        hoveredImageInfo: null,
+        hideImageInfoTimeout: null,
       };
     },
     
@@ -98,6 +141,35 @@
       isStateInVisited(state) {
         return this.userStore.getUserVisitedStates.some((visited) => visited.id === state.id);
       },
+
+      showImageInfo(state) {
+        console.log("teste");
+        // Set the information for the hovered image
+        this.hoveredImageInfo = {
+          title: state.curiositieTitle,
+          place: state.curiositiesPlace,
+          desc: state.curiositieDesc,
+          src: state.curiositiesSrc
+        };
+      },
+      hideImageInfo() {
+        // Clear the information when not hovering
+        this.hoveredImageInfo = null;
+      },
+
+      cancelHideImageInfo() {
+        // Cancel the hide timeout when the mouse is over the card
+        clearTimeout(this.hideImageInfoTimeout);
+      },
+
+      delayHideImageInfo() {
+        // Delay hiding the card to prevent flickering
+        this.hideImageInfoTimeout = setTimeout(() => {
+          this.hideImageInfo();
+        }, 500); // Adjust the delay as needed
+      },
+
+      
     },
 
     computed: {
@@ -109,6 +181,17 @@
   </script>
   
   <style>
+
+  @font-face {
+      font-family: 'IBM Plex Sans';
+      src: url(../assets/fonts/IBMPlexSans-SemiBold.ttf);
+    }
+    
+  @font-face {
+        font-family: 'IBM Plex Mono';
+        src: url(../assets/fonts/IBMPlexMono-Bold.ttf);
+  }
+  
   #containerBrazilMap {
     position: absolute;
     top: 50%;
@@ -120,12 +203,19 @@
   .shape {
     fill: #183d3d;
     transition: fill 0.3s ease; /* Add smooth transition */
+    z-index: -1;
   }
   
-  .shape.clicked {
-    fill: #091d1d; /* Darker color when clicked */
+  .clicked-shape {
+    fill: #091d1d;
+  }
+
+  .state:not(.clicked):hover .shape {
+    fill: #1b4848;
   }
   
+  
+
   .label-state {
     fill: #fff;
   }
@@ -145,7 +235,22 @@
   
   .pin {
     transition: opacity 0.3s ease; /* Add smooth transition for pin */
+    z-index: 2;
   }
   
+
+  .tooltip {
+      position: absolute;
+      padding: 10px;
+      z-index: 999;
+    }
+
+    .card2 {
+    min-width: 33.3%;
+    padding-top: 2em;
+    padding-left: 2em;
+    font-family: 'IBM Plex Sans';
+    
+  }
   </style>
   
