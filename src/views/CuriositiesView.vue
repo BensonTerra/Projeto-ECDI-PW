@@ -142,33 +142,9 @@
         </div>
         </transition>
 
-
-        <transition name="fade" mode="out-in">
-        <div v-if="showSuccessWarn" class="SuccessMessage">
-            <div class="successWarning">
-                <img src="../assets/divWarning.png" usemap="#sucessMap" class="divWarning">
-                <img src="../assets/sucessIcon.png" class="SuccessIcon">
-                <p class="successP">Curiosidade adicionada com sucesso!</p>
-                <map name="sucessMap">
-                    <area coords="158,137,206,169" shape="rect"  @click="closeCarousel">
-                </map>
-            </div>
-        </div>
-        </transition>
-
-
-        <transition name="fade" mode="out-in">
-        <div v-if="showErrorWarn" class="ErrorMessage">
-            <div class="ErrorWarning">
-                <img src="../assets/divWarning.png" usemap="#errorMap" class="divWarning">
-                <img src="../assets/errorIcon.png" class="ErrorIcon">
-                <p class="errorP">{{ errorMessage }}</p>
-                <map name="errorMap">
-                    <area coords="158,137,206,169" shape="rect"  @click="closeCarousel">
-                </map>
-            </div>
-        </div>
-        </transition>
+        <v-snackbar v-model="snackbar" :timeout="timeout" :color="snackbarColor">
+            {{ snackbarMessage }}
+        </v-snackbar>
     </div>
 </template>
 
@@ -194,8 +170,10 @@ export default {
             showFlightsCarousel: false,
             showAirplanesCarousel: false,
             showAddCuriositiesForm: false,
-            showSuccessWarn: false,
-            showErrorWarn: false,
+            snackbar: false,
+            timeout: 3000, 
+            snackbarMessage: '', 
+            snackbarColor: '',
             selectedType: '',
             curiosityDescription: '',
             imgSrc:'',
@@ -256,13 +234,19 @@ export default {
             this.showAddCuriositiesForm = true;
            
         },
+
+        showSnackbar(message, color) {
+            this.snackbarMessage = message;
+            this.snackbarColor = color; 
+            this.snackbar = true;
+        },
+
         async addNewCuriosity() {
                 // Check if any of the required fields are empty
                 if (!this.selectedType || !this.imgSrc || !this.curiosityDescription) {
                     // Display an error message for empty fields
                     this.showAddCuriositiesForm = false;
-                    this.showErrorWarn = true;
-                    this.errorMessage = 'Os campos não podem estar vazios.';
+                    this.showSnackbar("Os campos não podem estar vazios!", 'error');
                     return;
                 }
 
@@ -281,20 +265,20 @@ export default {
                     this.imgSrc = '';
                     // Show success message
                     this.showAddCuriositiesForm = false;
-                    this.showSuccessWarn = true;
+                    this.showSnackbar('Curiosidade Adicionada com sucesso!', 'success');
 
-                    console.log(this.showSuccessWarn);
+                   
                 } catch (error) {
                     // Handle errors
                     console.error('Error adding curiosity:', error);
                     // Optionally, display an error message or perform error-related actions
                     this.showAddCuriositiesForm = false;
-                    this.showErrorWarn = true;
-                    // Check for specific error types if needed
+                   
+                    
                     if (error.message === 'SpecificErrorType') {
-                        this.errorMessage = 'Erro específico ao adicionar a curiosidade.';
+                        this.showSnackbar('Erro especifico', 'error');
                     } else {
-                        this.errorMessage = 'Erro ao adicionar a curiosidade. Tente novamente.';
+                        this.showSnackbar('Erro ao adicionar curiosidade. Tente novamente.', 'error');
                     }
                 }
             }
@@ -473,4 +457,12 @@ textarea {
 .fade-enter, .fade-leave-to {
   opacity: 0;
 }
+
+
+.v-snack {
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+}
+
 </style>
