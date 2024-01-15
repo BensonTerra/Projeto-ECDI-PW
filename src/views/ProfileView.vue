@@ -124,8 +124,8 @@
         this.areaName = "";
       },
       updateHoverPosition(event) {
-        this.hoverX = event.pageX + -520; // Adjust offset as needed
-        this.hoverY = event.pageY - 100; // Adjust offset as needed
+        this.hoverX = event.pageX + -680; // Adjust offset as needed
+        this.hoverY = event.pageY - 200; // Adjust offset as needed
       },
       toggleAreaClicked(state) {
         state.clicked = !state.clicked;
