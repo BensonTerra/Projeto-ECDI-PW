@@ -4,12 +4,12 @@ export const useUserStore = defineStore("user", {
     isUserAuthenticated: false,
     user: null,
     users: [
-      {id: 1, email: "simao@gmail.com", username: "simao", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg', favoriteAirports:[], favoriteCompanies:[] },
-      {id: 2, email: "luisa@gmail.com", username: "luisa", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg',favoriteAirports:[], favoriteCompanies:[]  },
-      {id: 3, email: "nelson@gmail.com", username: "nelson", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg', favoriteAirports:[], favoriteCompanies:[]  },
-      {id: 4, email: "admin@gmail.com", username: "admin", password: "admin", isAdmin: true, isBlocked: false, avatar: '../src/assets/avatar/avatar4.png', favoriteAirports:[], favoriteCompanies:[]  },
-      {id: 5, email: "admin2@gmail.com", username: "admin2", password: "admin2", isAdmin: true, isBlocked: false, avatar: '../src/assets/avatar/avatar4.png', favoriteAirports:[], favoriteCompanies:[]  },
-      {id: 6, email: "blocked@gmail.com", username: "blocked", password: "blocked", isAdmin: false, isBlocked: true, avatar: '../src/assets/avatar/defaultAvatar.jpg', favoriteAirports:[], favoriteCompanies:[]  },
+      {id: 1, email: "simao@gmail.com", username: "simao", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg', favoriteAirports:[], favoriteCompanies:[], visitedStates: [] },
+      {id: 2, email: "luisa@gmail.com", username: "luisa", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg',favoriteAirports:[], favoriteCompanies:[], visitedStates: []  },
+      {id: 3, email: "nelson@gmail.com", username: "nelson", password: "12345", isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg', favoriteAirports:[], favoriteCompanies:[], visitedStates: []  },
+      {id: 4, email: "admin@gmail.com", username: "admin", password: "admin", isAdmin: true, isBlocked: false, avatar: '../src/assets/avatar/avatar4.png', favoriteAirports:[], favoriteCompanies:[], visitedStates: []  },
+      {id: 5, email: "admin2@gmail.com", username: "admin2", password: "admin2", isAdmin: true, isBlocked: false, avatar: '../src/assets/avatar/avatar4.png', favoriteAirports:[], favoriteCompanies:[], visitedStates: []  },
+      {id: 6, email: "blocked@gmail.com", username: "blocked", password: "blocked", isAdmin: false, isBlocked: true, avatar: '../src/assets/avatar/defaultAvatar.jpg', favoriteAirports:[], favoriteCompanies:[], visitedStates: []  },
     ],
     airports: [
       { id: 1, name: "Aeroporto Internacional de Guarulhos (GRU)", estado: "São Paulo", address: "Rod. Hélio Smidt, s/nº - Aeroporto, Guarulhos - SP, 07190-100, Brasil", image: "/src/assets/airports/guarulhos.jpg" },
