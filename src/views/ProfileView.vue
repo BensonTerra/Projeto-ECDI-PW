@@ -76,13 +76,13 @@
               :src="hoveredImageInfo.src"
               cover
             ></v-img>
-            <v-card-title style="font-size: 1em; color: #ECECE4;">
+            <v-card-title style="font-size: 1em; color: #ECECE4; padding-bottom: 0rem;">
               {{ hoveredImageInfo.title }}
             </v-card-title>
-            <v-card-title style="font-size: 0.6em; color: #ECECE4;">
+            <v-card-title style="font-size: 0.8em; color: #ECECE4; ">
               {{ hoveredImageInfo.place }}
             </v-card-title>
-            <v-card-title style="font-size: 0.6em; color: #8c8c8a; white-space: normal; line-height: 0.9rem;">
+            <v-card-title style="font-size: 0.8em; color: #8c8c8a; white-space: normal; line-height: 0.9rem; ">
               {{ hoveredImageInfo.desc }}
             </v-card-title>
            
