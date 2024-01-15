@@ -175,25 +175,77 @@ export default {
             oldPassword: '',
             newPassword: '',
             confirmPassword: '',
-            chartData: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-                datasets: [{
-                    label: 'My Dataset',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                }],
-            },
         }
     },
     mounted() {
-        // Initialize the chart in the mounted hook
-        const ctx = document.getElementById('myChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: this.chartData,
-        });
+      // Initialize the chart in the mounted hook
+      const totalNumberofStates = 25;
+      let numberOfVisitedStates = this.getUserVisitedStates.length;
+      let percentageOfVisitedStates = Math.round((numberOfVisitedStates / totalNumberofStates) * 100);
+      const ctx = document.getElementById('myChart').getContext('2d');
+
+      new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+              labels: ['Nº de estados visitados', 'Nº de estados por visitar'],
+              datasets: [{
+                  backgroundColor: ['#93B1A6' , '#00191F'],
+                  borderColor: ['#93B1A6' , '#00191F'],
+                  data: [numberOfVisitedStates, totalNumberofStates - numberOfVisitedStates],
+              }],
+          },
+          options: {
+              cutout: 60, // Adjust the cutout size (0 to disable)
+              radius: '80%',
+              plugins: {
+                  legend: {
+                      display: true,
+                      position: 'bottom', // Adjust the position of the legend
+                      labels: {
+                          color: '#93B1A6', // Legend text color
+                          font: {
+                              size: 14, // Legend font size
+                              family: 'IBM Plex Sans', // Legend font family
+                          },
+                      },
+                  },
+                  centerText: { // Custom plugin for center text
+                      text: `${percentageOfVisitedStates}%`,
+                      color: '#93B1A6', // Text color
+                      font: {
+                          size: 24,
+                          family: 'IBM Plex Sans',
+                      },
+                  },
+              },
+          },
+          plugins: [{
+              beforeDraw: function(chart) {
+                  // Center text plugin logic
+                  var width = chart.width,
+                      height = chart.height,
+                      ctx = chart.ctx;
+
+                  var centerText = chart.config.options.plugins.centerText;
+                  if (centerText) {
+                      var text = centerText.text,
+                          color = centerText.color,
+                          font = centerText.font;
+
+                      ctx.save();
+                      ctx.textAlign = 'center';
+                      ctx.textBaseline = 'middle';
+                      ctx.fillStyle = color;
+                      ctx.font = `${font.size}px ${font.family}`;
+                      ctx.fillText(text, width / 2 , height / 2 - 25);
+                      ctx.restore();
+                  }
+              },
+          }],
+      });
     },
+
+
     computed: {
         loggedUser() {
             return this.userStore.getUser
@@ -205,6 +257,9 @@ export default {
         passwordLabel() {
             return '*'.repeat(this.loggedUser.password.length);
         },
+        getUserVisitedStates() {
+          return this.userStore.getUserVisitedStates
+        }
     },
     methods: {
         // Change avatar logic
