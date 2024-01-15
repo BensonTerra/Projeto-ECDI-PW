@@ -21,7 +21,7 @@
       v-model="model"
       hide-details
       inset
-      
+      :label="switchLabel"
       class="chegadasPartidas"
     ></v-switch>
     <v-table class="tableFlights">
@@ -38,7 +38,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="airplane in filteredTableData" :key="airplane.id">
+        <tr v-for="airplane in filteredTableData" :key="airplane.id" @click="showFlightDetails(airplane)">
           <td>{{ airplane.flight.number }}</td>
           <td>{{ airplane.flight.company }}</td>
           <td>{{ model ? airplane.route.origin : airplane.route.destination }}</td>
@@ -50,6 +50,44 @@
         </tr>
       </tbody>
     </v-table>
+    <v-dialog v-model="dialogDetails" max-width="600">
+      <v-card
+      v-if="selectedFlight"
+      class="flight-info-card"
+      tile
+      color="#00191F"
+      >
+      <button class="closeButtonX" @click="hideCard">
+        <v-icon
+          icon="mdi-close"
+        ></v-icon></button>
+      
+      <v-img
+        class="align-end text-white"
+        height="200"
+        :src="selectedFlight.flight.image"
+        cover
+      ></v-img>
+      <v-card-title style="font-size: 1em; color: #ECECE4;">
+        Nº do voo: {{ selectedFlight.flight.number}}
+      </v-card-title>
+      <v-card-title style="font-size: 1em; color: #ECECE4;">
+        Companhia: {{ selectedFlight.flight.company}}
+      </v-card-title>
+      <v-card-title style="font-size: 1em; color: #ECECE4;">
+        Aeronave: {{ selectedFlight.flight.name}} ({{ selectedFlight.flight.aircraftCode}})
+      </v-card-title>
+      <v-card-title style="font-size: 1em; color: #ECECE4;">
+        Rota: {{ selectedFlight.route.origin}}({{ selectedFlight.route.originAbbreviation }}) - {{  selectedFlight.route.destination}}({{  selectedFlight.route.destinationAbbreviation }})
+      </v-card-title>
+      <v-card-title style="font-size: 1em; color: #ECECE4;">
+        Aeroporto: ({{ selectedFlight.route.originAirportIATA }})({{  selectedFlight.route.originAirportICAO }}) - ({{  selectedFlight.route.destinationAirportIATA }})({{  selectedFlight.route.destinationAirportICAO }})
+      </v-card-title>
+      <v-card-title style="font-size: 1em; color: #ECECE4;">
+        Horário: Partida({{  selectedFlight.schedule.depart }}) - Chegada({{  selectedFlight.schedule.arrival }})
+      </v-card-title>
+    </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -65,6 +103,8 @@ export default {
       destinationFilters: [],
       model: false,
       sortOrder:"asc",
+      dialogDetails:false,
+      selectedFlight: null,
       
     };
   },
@@ -86,17 +126,26 @@ export default {
           number: airplane.flight.number,
           company: airplane.flight.company,
           status: airplane.flight.status[1],
+          image: airplane.flight.image,
+          aircraftCode: airplane.flight.aircraftCode,
         },
         route: {
           destination: airplane.route.destination,
           destinationAirport: airplane.route.destinationAirport,
           origin: airplane.route.origin,
           originAirport: airplane.route.originAirport,
+          originAirportIATA:airplane.route.originAirportIATA,
+          originAirportICAO:airplane.route.originAirportICAO,
+          destinationAirportIATA:airplane.route.destinationAirportIATA,
+          destinationAirportICAO:airplane.route.destinationAirportICAO,
+          originAbbreviation:airplane.route.originAbbreviation,
+          destinationAbbreviation:airplane.route.destinationAbbreviation,
         },
         gate: airplane.gate,
         schedule: {
           date: airplane.schedule.date,
           depart: airplane.schedule.depart,
+          arrival: airplane.schedule.arrival,
         },
       })) || [];
     },
@@ -117,7 +166,20 @@ export default {
         return flightNumberMatches && companyMatches && destinationMatches;
       });
     },
+    switchLabel() {
+       return this.model ? 'Chegadas' : 'Partidas';
+  },
     
+    
+  },
+  methods: {
+      showFlightDetails(airplane) {
+      this.dialogDetails = true; // Open the dialog
+      this.selectedFlight = airplane;
+    },
+    hideCard(){
+      this.dialogDetails=false
+    }
   },
 };
 </script>
@@ -125,11 +187,11 @@ export default {
 <style scoped>
 .tableFlights {
   background-color: #183d3d;
-  width: 70rem;
+  width: 75rem;
   position: absolute;
   margin: 6rem;
   margin-top: 10rem;
-  left: 16%;
+  left: 14%;
 }
 .head {
   color: #deb627;
@@ -162,7 +224,7 @@ tbody tr:hover {
   margin-top: 5rem;
   border-radius: 10rem;
   position:absolute;
-  left:21%;
+  left:19%;
 }
 
 .filterCompanhia{
@@ -181,6 +243,27 @@ tbody tr:hover {
 .chegadasPartidas{
   position: absolute;
   margin-top: 5rem;
-  left:75%;
+  left:74%;
+  width: 9rem;
+}
+
+.closeButtonX {
+    color: #ECECE4;
+    position: absolute;
+    z-index: 999;
+    margin: 1% 0 0 92.5%;
+  }
+  .hideCard {
+    animation: slideOutFromRight 1s ease-in-out forwards; 
+  }
+  .v-selection-control {
+    align-items: center;
+    contain: layout;
+    display: flex;
+    flex: 1 0;
+    grid-area: control;
+    position: relative;
+    user-select: none;
+    BACKGROUND-COLOR: aliceblue;
 }
 </style>
