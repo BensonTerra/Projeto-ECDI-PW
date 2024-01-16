@@ -26,6 +26,9 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 ```sh
 npm install
 ```
+```sh
+npm i pinia-plugin-persistedstate
+```
 
 ### Compile and Hot-Reload for Development
 
