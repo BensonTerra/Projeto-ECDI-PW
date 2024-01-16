@@ -175,7 +175,7 @@
         };
       },
       hideImageInfo() {
-        // Clear the information when not hovering
+        
         this.hoveredImageInfo = null;
       },
 
@@ -188,10 +188,30 @@
         this.isOpenInfo=false
       },
 
+     
+      toggleVisitedStatesOnLoad() {
+              // Set all states to state.clicked: false
+              this.states.forEach((state) => {
+                state.clicked = false;
+              });
+
+              // Set state.clicked: true for visited states
+              const visitedStates = this.userStore.getUserVisitedStates;
+              visitedStates.forEach((visitedState) => {
+                const state = this.states.find((s) => s.id === visitedState.id);
+                if (state) {
+                  state.clicked = true;
+                }
+              });
+            },
 
 
+          },
 
-      
+
+    mounted() {
+      // Call the method when the component is mounted
+      this.toggleVisitedStatesOnLoad();
     },
 
     computed: {
