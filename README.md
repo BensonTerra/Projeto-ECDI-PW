@@ -29,6 +29,12 @@ npm install
 ```sh
 npm i pinia-plugin-persistedstate
 ```
+```sh
+npm install chart.js
+```
+```sh
+npm i vuetify
+```
 
 ### Compile and Hot-Reload for Development
 
