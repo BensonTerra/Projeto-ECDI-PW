@@ -27,18 +27,38 @@
     <v-table class="tableFlights">
       <thead class="head">
         <tr>
-           <th class="text-center">Nº de Voo</th>
-          <th class="text-center">Companhia</th>
-          <th class="text-center">{{ model ? 'Origem' : 'Destino' }}</th>
-          <th class="text-center">Portão</th>
+          <th class="text-center" @click="changeOrder('flight.number')">
+            Nº de Voo
+            {{ renderOrderArrow('flight.number') }}
+          </th>
+          <th class="text-center" @click="changeOrder('flight.company')">
+            Companhia
+            {{ renderOrderArrow('flight.company') }}
+          </th>
+          <th class="text-center"  @click="changeOrder(model ? 'route.origin' : 'route.destination')">
+            {{ model ? 'Origem' : 'Destino' }}
+            {{ renderOrderArrow(model ? 'route.origin' : 'route.destination') }}
+          </th>
+          <th class="text-center" @click="changeOrder('gate')">
+            Portão
+            {{ renderOrderArrow('gate') }}
+          </th>
           <th class="text-center">Dia</th>
-          <th class="text-center">Hora</th>
-          <th class="text-center">Estado</th>
-          <th class="text-center">Aeroporto</th>
+          <th class="text-center">
+            Hora
+          </th>
+          <th class="text-center" @click="changeOrder('flight.status')">
+            Estado
+            {{ renderOrderArrow('flight.status') }}
+          </th>
+          <th class="text-center" @click="changeOrder(model ? 'route.originAirport' : 'route.destinationAirport')">
+            Aeroporto
+            {{ renderOrderArrow(model ? 'route.originAirport' : 'route.destinationAirport') }}
+          </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="airplane in filteredTableData" :key="airplane.id" @click="showFlightDetails(airplane)">
+        <tr v-for="airplane in orderTaskList" :key="airplane.id" @click="showFlightDetails(airplane)">
           <td>{{ airplane.flight.number }}</td>
           <td>{{ airplane.flight.company }}</td>
           <td>{{ model ? airplane.route.origin : airplane.route.destination }}</td>
@@ -105,7 +125,8 @@ export default {
       sortOrder:"asc",
       dialogDetails:false,
       selectedFlight: null,
-      
+      orderFlag: 1,
+      orderType: '',
     };
   },
   created() {
@@ -168,7 +189,24 @@ export default {
     },
     switchLabel() {
        return this.model ? 'Chegadas' : 'Partidas';
-  },
+     },
+     orderTaskList() {
+      return this.filteredTableData.sort((airplane1, airplane2) => {
+        const value1 = this.getFieldValue(airplane1, this.orderType);
+        const value2 = this.getFieldValue(airplane2, this.orderType);
+
+        // Verify if the values are numbers
+        const isNumeric = !isNaN(value1) && !isNaN(value2);
+
+        if (isNumeric) {
+          // Order numbers
+          return (value1 - value2) * this.orderFlag;
+        } else {
+          // Order strings
+          return value1.localeCompare(value2) * this.orderFlag;
+        }
+      });
+    }
     
     
   },
@@ -179,7 +217,40 @@ export default {
     },
     hideCard(){
       this.dialogDetails=false
-    }
+    },
+    changeOrder(orderType) {
+      this.orderFlag = this.orderFlag * -1;
+      this.orderType = orderType;
+    },
+    getFieldValue(airplane, fieldName) {
+      // Split the field name by dots to get an array of nested property names
+      const fields = fieldName.split('.');
+      // Initialize the value to be the entire airplane object
+      let value = airplane;
+
+      // Iterate through each field in the array
+      for (const field of fields) {
+          // Check if the current value has the specified field as a property
+        if (value && value.hasOwnProperty(field)) {
+          // If yes, update the value to be the value of the nested property
+          value = value[field];
+        } else {
+          // If not, return null (indicating that the field doesn't exist)
+          return null;
+        }
+      }
+      // After iterating through all fields, return the final value
+      return value;
+    },
+    renderOrderArrow(orderType) {
+      // Check if the current column is the one being sorted
+      if (this.orderType === orderType) {
+        // If yes, return an upward-pointing arrow ('▲') if ascending, or a downward-pointing arrow ('▼') if descending
+        return this.orderFlag === 1 ? '▲' : '▼';
+      }
+      // If the current column is not the one being sorted, return an empty string
+      return '';
+    },
   },
 };
 </script>
@@ -192,6 +263,9 @@ export default {
   margin: 6rem;
   margin-top: 10rem;
   left: 14%;
+}
+th {
+  cursor: pointer;
 }
 .head {
   color: #deb627;
@@ -266,4 +340,6 @@ tbody tr:hover {
     user-select: none;
     BACKGROUND-COLOR: aliceblue;
 }
+
+
 </style>
