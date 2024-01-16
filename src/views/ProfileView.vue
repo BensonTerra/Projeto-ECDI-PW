@@ -88,6 +88,27 @@
            
           </v-card>
           </div>
+
+          <div class="info-button">
+              <img class="iconInfo"  @click.prevent="openInfo" src="../assets/CuriositiesImgs/infobutton.png" alt="Ver informações" >
+        </div>
+
+
+       
+    <v-dialog v-model="isOpenInfo" max-width="600">
+      <v-card class="cardInfo">
+        <div class="titleInfo">
+          <button class="closeInfoIcon" @click="closeInfo">
+            <v-icon icon="mdi-close"></v-icon>
+          </button>
+        </div>
+        <v-card-text>
+          <p class="titleTextInfo"> Faça um Brasil só seu!</p>
+         <p class="contentTextInfo"> Marque os estados que já visitou no mapa! Descubra um ponto turístico em cada capital para tornar suas experiências de viagem ainda mais especiais.</p>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
 </template>
   
   <script>
@@ -111,6 +132,7 @@
         userStore: useUserStore(),
         hoveredImageInfo: null,
         hideImageInfoTimeout: null,
+        isOpenInfo:false,
       };
     },
     
@@ -124,8 +146,8 @@
         this.areaName = "";
       },
       updateHoverPosition(event) {
-        this.hoverX = event.pageX + -680; // Adjust offset as needed
-        this.hoverY = event.pageY - 200; // Adjust offset as needed
+        this.hoverX = event.pageX + -680; 
+        this.hoverY = event.pageY - 200;
       },
       toggleAreaClicked(state) {
         state.clicked = !state.clicked;
@@ -157,17 +179,17 @@
         this.hoveredImageInfo = null;
       },
 
-      cancelHideImageInfo() {
-        // Cancel the hide timeout when the mouse is over the card
-        clearTimeout(this.hideImageInfoTimeout);
+      openInfo(){
+        console.log("openInfo method is called");
+        this.isOpenInfo=true
       },
 
-      delayHideImageInfo() {
-        // Delay hiding the card to prevent flickering
-        this.hideImageInfoTimeout = setTimeout(() => {
-          this.hideImageInfo();
-        }, 500); // Adjust the delay as needed
+      closeInfo(){
+        this.isOpenInfo=false
       },
+
+
+
 
       
     },
@@ -190,6 +212,11 @@
   @font-face {
         font-family: 'IBM Plex Mono';
         src: url(../assets/fonts/IBMPlexMono-Bold.ttf);
+  }
+
+  @font-face {
+        font-family: 'IBM Plex Sans Regular';
+        src: url(..\assets\fonts\IBMPlexSans-Regular.ttf);
   }
   
   #containerBrazilMap {
@@ -249,8 +276,55 @@
     min-width: 33.3%;
     padding-top: 2em;
     padding-left: 2em;
-    font-family: 'IBM Plex Sans';
+    font-family: 'IBM Plex Sans';}
     
-  }
+    .info-button {
+    position: absolute;
+    bottom: 1rem;
+    right: 15rem;
+    cursor: pointer;
+      }
+
+    .iconInfo{
+      width: 3.5vw
+    }
+
+    .closeInfoIcon{
+      color: #ECECE4;
+      position: absolute;
+      z-index: 999;
+      margin: 1% 0 0 92.5%;
+    }
+
+    .titleInfo {
+      position: absolute;
+      right:3rem;
+      top: 1rem;
+    
+    }
+  
+    .cardInfo{
+      background-color: #00191F !important;
+      border-radius: 5% !important; 
+      height: 30vh;
+      width: 30vw;
+    }
+
+    .titleTextInfo{
+      position: relative;
+      text-align: center;
+      padding-bottom: 1rem;
+      font-size: 1.2rem;
+      font-family: 'IBM Plex Sans';
+      color: #cca721 ;
+      top: 1.5rem;
+    }
+
+    .contentTextInfo{
+      padding-top: 1.3rem;
+      font-size: 0.8rem;
+      font-family: 'IBM Plex Sans Regular';
+      text-align: center;
+    }
   </style>
   
