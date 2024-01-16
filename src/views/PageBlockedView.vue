@@ -71,8 +71,8 @@ export default {
 /*Content Section */
 .ContentBlocked {
   position: absolute;
-  left: 50rem;
-  top:10rem;
+  left: 70rem;
+  top:20rem;
 }
 
 .TitleContentBlocked, .TextContentBlocked{
