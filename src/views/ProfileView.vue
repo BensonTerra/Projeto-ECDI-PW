@@ -301,7 +301,7 @@
     .info-button {
     position: absolute;
     bottom: 1rem;
-    right: 15rem;
+    right: 20rem;
     cursor: pointer;
       }
 
