@@ -1,29 +1,35 @@
 <template>
   <div>
-    <v-text-field label="Nº de voo" class="inputVoo" v-model="flightNumberFilter"></v-text-field>
-    <v-combobox
-      v-model="companyFilters"
-      :items="filters.companhia"
-      label="Companhia"
-      multiple
-      chips
-      class="filterCompanhia"
-    ></v-combobox>
-    <v-combobox
-      v-model="destinationFilters"
-      :items="filters.destino"
-      label="Destino"
-      multiple
-      chips
-      class="filterDestino"
-    ></v-combobox>
-    <v-switch
-      v-model="model"
-      hide-details
-      inset
-      :label="switchLabel"
-      class="chegadasPartidas"
-    ></v-switch>
+    <div class="filter-container">
+
+      <v-text-field label="Nº de voo" class="inputVoo" v-model="flightNumberFilter"></v-text-field>
+      <v-combobox
+        v-model="companyFilters"
+        :items="filters.companhia"
+        label="Companhia"
+        multiple
+        chips
+        clearable
+        class="filterCompanhia"
+      ></v-combobox>
+      <v-combobox
+        v-model="destinationFilters"
+        :items="filters.destino"
+        label="Destino"
+        multiple
+        chips
+        clearable
+        class="filterDestino"
+      ></v-combobox>
+      <v-switch
+        v-model="model"
+        hide-details
+        inset
+        :label="switchLabel"
+        class="chegadasPartidas"
+      ></v-switch>
+    </div>
+    <div class="centered-title">{{model ? 'Chegadas' : 'Partidas'}}</div>
     <v-table class="tableFlights">
       <thead class="head">
         <tr>
@@ -45,7 +51,7 @@
           </th>
           <th class="text-center">Dia</th>
           <th class="text-center">
-            Hora
+            {{ model ? 'Hora de Chegada' : 'Hora de Partida' }}
           </th>
           <th class="text-center" @click="changeOrder('flight.status')">
             Estado
@@ -58,13 +64,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="airplane in orderTaskList" :key="airplane.id" @click="showFlightDetails(airplane)">
+        <tr v-for="airplane in orderedTable" :key="airplane.id" @click="showFlightDetails(airplane)">
           <td>{{ airplane.flight.number }}</td>
           <td>{{ airplane.flight.company }}</td>
           <td>{{ model ? airplane.route.origin : airplane.route.destination }}</td>
           <td>{{ airplane.gate }}</td>
-          <td>{{ airplane.schedule.date }}</td>
-          <td>{{ airplane.schedule.depart }}</td>
+          <td>{{ formatDate(airplane.schedule.date)  }}</td>
+          <td>{{ model ? airplane.schedule.arrival : airplane.schedule.depart}}</td>
           <td>{{ airplane.flight.status}}</td>
           <td>{{ model ? airplane.route.originAirport : airplane.route.destinationAirport }}</td>
         </tr>
@@ -190,7 +196,7 @@ export default {
     switchLabel() {
        return this.model ? 'Chegadas' : 'Partidas';
      },
-     orderTaskList() {
+     orderedTable() {
       return this.filteredTableData.sort((airplane1, airplane2) => {
         const value1 = this.getFieldValue(airplane1, this.orderType);
         const value2 = this.getFieldValue(airplane2, this.orderType);
@@ -207,8 +213,6 @@ export default {
         }
       });
     }
-    
-    
   },
   methods: {
       showFlightDetails(airplane) {
@@ -217,6 +221,19 @@ export default {
     },
     hideCard(){
       this.dialogDetails=false
+    },
+    formatDate(fullDate) {
+      // Convert the date string to a Date object
+      const dateObj = new Date(fullDate);
+
+      // Get the month (0-11) and add 1 to get the actual month number (1-12)
+      const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+
+      // Get the day of the month and add 0 to get a leading zero, if needed
+      const day = dateObj.getDate().toString().padStart(2, '0');
+
+      // Return the formatted date as "MM/DD"
+      return `${month}/${day}`;
     },
     changeOrder(orderType) {
       this.orderFlag = this.orderFlag * -1;
@@ -256,30 +273,56 @@ export default {
 </script>
 
 <style scoped>
+ @font-face {
+    font-family: 'IBM Plex Sans';
+    src: url(../assets/fonts/IBMPlexSans-SemiBold.ttf);
+  }
+  @font-face {
+      font-family: 'IBM Plex Mono';
+      src: url(../assets/fonts/IBMPlexMono-Bold.ttf);
+  }
 .tableFlights {
   background-color: #183d3d;
   width: 75rem;
   position: absolute;
-  margin: 6rem;
-  margin-top: 10rem;
   left: 14%;
+  margin-top: 3em;
 }
 th {
   cursor: pointer;
 }
 .head {
-  color: #deb627;
-  font-weight: bolder;
-  font-size: 1rem;
+  color: #DEB627;
+  text-align: center;
+  font-family: IBM Plex Mono;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  text-transform: capitalize;
 }
 tbody tr:nth-of-type(odd) {
   background-color: #040d12;
+  text-align: center;
   color: #ECECE4;
   text-align: center;
+  font-family: IBM Plex Sans;
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
 }
 tbody tr:nth-of-type(even) {
-  color: #ECECE4;
   text-align: center;
+  color:#ECECE4;
+  text-align: center;
+  font-family: IBM Plex Sans;
+  font-size: 0.9rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
 }
 
 tbody tr:nth-of-type(odd):hover,tbody tr:nth-of-type(even):hover{
@@ -293,32 +336,84 @@ tbody tr:hover {
   cursor: pointer;
 }
 
+.centered-title {
+    display: flex;
+    justify-content: center;
+    color:  #DEB627;
+    font-family: IBM Plex Mono;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: capitalize;
+    margin-top: 1em;
+}
+
+.filter-container {
+  display: flex;
+  justify-content: center; 
+  max-width: 80vw;
+  margin-top: 2em;
+  margin-left: 9em;
+}
+
 .inputVoo{
   width: 15rem;
-  margin-top: 5rem;
-  border-radius: 10rem;
-  position:absolute;
-  left:19%;
+  text-align: center;
+  font-family: IBM Plex Sans;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
+  background-color: #ECECE4;
+  height: 3em;
+  margin: 1em;
+  border: 2px solid #DEB627;
 }
 
 .filterCompanhia{
-  position:absolute;
   width: 20rem;
-  margin-top: 5rem;
-  left:35%;
+  text-align: center;
+  font-family: IBM Plex Sans;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
+  background-color: #ECECE4;
+  height: 3em;
+  margin: 1em;
+  border: 2px solid #DEB627;
 }
 
 .filterDestino{
-  position:absolute;
   width: 20rem;
-  margin-top: 5rem;
-  left:53%;
+  text-align: center;
+  font-family: IBM Plex Sans;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
+  background-color: #ECECE4;
+  height: 3em;
+  margin: 1em;
+  border: 2px solid #DEB627;
 }
 .chegadasPartidas{
-  position: absolute;
-  margin-top: 5rem;
-  left:74%;
   width: 9rem;
+  text-align: center;
+  font-family: IBM Plex Sans;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
+  background-color: #ECECE4;
+  margin: 1em;
+  border: 2px solid #DEB627;
+  height: 3em;
 }
 
 .closeButtonX {
@@ -340,6 +435,19 @@ tbody tr:hover {
     user-select: none;
     BACKGROUND-COLOR: aliceblue;
 }
+
+.flight-info-card {
+  color: #ECECE4;
+  font-family: IBM Plex Sans;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-transform: capitalize;
+}
+
+
+
 
 
 </style>

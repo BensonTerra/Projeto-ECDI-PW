@@ -6,6 +6,8 @@
           @change="filterAirports"
           v-model="selectedState"
           :items="['Todos', 'Acre', 'Alagoas', 'Amapá', 'Amazonas', 'Bahia', 'Ceará', 'Distrito Federal', 'Espírito Santo', 'Goiás', 'Maranhão', 'Mato Grosso', 'Mato Grosso do Sul', 'Minas Gerais', 'Pará', 'Paraíba', 'Paraná', 'Pernambuco', 'Piauí', 'Rio de Janeiro', 'Rio Grande do Norte', 'Rio Grande do Sul', 'Rondônia', 'Roraima', 'Santa Catarina', 'São Paulo', 'Sergipe', 'Tocantins']"
+          chips
+          clearable
       ></v-select>
       <v-row>
         <v-col v-for="airport in airports" :key="airport.id" cols="4">
@@ -193,7 +195,9 @@
   width: 21rem;
   position: relative;
   left:65%;
-  border-radius: 1rem !important;
+  background-color: white;
+  height: 3.65em;
+  border: 2px solid #deb627;
 }
 
 .v-row {

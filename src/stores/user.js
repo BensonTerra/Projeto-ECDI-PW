@@ -473,6 +473,12 @@ export const useUserStore = defineStore("user", {
         throw new Error("As senhas não coincidem.");
       }
 
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailRegex.test(email)) {
+        throw new Error("Por favor, insira um email válido.");
+      }
+
       if (!email || !username || !password || !confirmPassword) {
         throw new Error("Preencha os campos todos.");
       }
@@ -483,7 +489,7 @@ export const useUserStore = defineStore("user", {
       }
 
       const id = this.users[this.users.length - 1].id + 1;
-      const newUser = {id: id, email, username, password, isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg', favoriteAirports:[]};
+      const newUser = {id: id, email, username, password, isAdmin: false, isBlocked: false, avatar: '../src/assets/avatar/defaultAvatar.jpg', favoriteAirports:[], favoriteCompanies:[], visitedStates:[]};
       this.users.push(newUser);
 
       this.login(username, password);

@@ -288,6 +288,14 @@ export default {
 </script>
 
 <style>
+@font-face {
+    font-family: 'IBM Plex Sans';
+    src: url(../assets/fonts/IBMPlexSans-SemiBold.ttf);
+  }
+  @font-face {
+      font-family: 'IBM Plex Mono';
+      src: url(../assets/fonts/IBMPlexMono-Bold.ttf);
+}
 .backgroundImage {
     display: flex;
     justify-content: center;
@@ -349,16 +357,28 @@ export default {
 }
 
 .carouselCuriosities h2{
-  position: absolute;
-  top: 0.2em;
-  right: 19rem;
-  color: #ECECE4;
-  width: 1rem;
+    position: absolute;
+    top: 0.2em;
+    right: 19rem;
+    color: #ECECE4;
+    width: 1rem;
+    color: #ECECE4;
+    text-align: center;
+    font-family: IBM Plex Mono;
+    font-size: 1.7rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
 }
 .v-card .v-card-text {
-    line-height: 1.25rem;
     background-color: #00191f;
-    color: #ECECE4;
+    color:  #ECECE4;
+    text-align: center;
+    font-family: IBM Plex Mono;
+    font-size: 0.6rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
     min-width: 25vw;
 }
 .v-btn__overlay {
