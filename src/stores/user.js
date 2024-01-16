@@ -471,6 +471,12 @@ export const useUserStore = defineStore("user", {
     register(email, username, password, confirmPassword) {                      
       if (password !== confirmPassword) {
         throw new Error("As senhas não coincidem.");
+      } 
+      if (password.length < 8) {
+        throw new Error("A palavra-passe deve ter pelo menos 8 caracteres.");
+      } 
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+        throw new Error("A palavra-passe deve conter pelo menos um caracter especial.");
       }
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
