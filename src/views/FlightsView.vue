@@ -285,7 +285,7 @@ export default {
   background-color: #183d3d;
   width: 75rem;
   position: absolute;
-  left: 14%;
+  left: 20%;
   margin-top: 3em;
 }
 th {
@@ -346,19 +346,19 @@ tbody tr:hover {
     font-weight: 600;
     line-height: normal;
     text-transform: capitalize;
-    margin-top: 1em;
+    margin-top: 0em;
 }
 
 .filter-container {
   display: flex;
   justify-content: center; 
-  max-width: 80vw;
+  max-width: 50vw;
   margin-top: 2em;
-  margin-left: 9em;
+  margin-left: 30em;
 }
 
 .inputVoo{
-  width: 15rem;
+  width: 6rem !important;
   text-align: center;
   font-family: IBM Plex Sans;
   font-size: 1.25rem;
@@ -373,7 +373,7 @@ tbody tr:hover {
 }
 
 .filterCompanhia{
-  width: 20rem;
+  width: 7rem !important;
   text-align: center;
   font-family: IBM Plex Sans;
   font-size: 1.25rem;
@@ -388,7 +388,7 @@ tbody tr:hover {
 }
 
 .filterDestino{
-  width: 20rem;
+  width: 8rem !important;
   text-align: center;
   font-family: IBM Plex Sans;
   font-size: 1.25rem;
@@ -402,7 +402,7 @@ tbody tr:hover {
   border: 2px solid #DEB627;
 }
 .chegadasPartidas{
-  width: 9rem;
+  width: 2.2rem !important;
   text-align: center;
   font-family: IBM Plex Sans;
   font-size: 1.25rem;
